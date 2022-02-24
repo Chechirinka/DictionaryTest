@@ -6,39 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Dictionary {
+public class WorkWithFile {
+
     public static File file = new File( "E:\\Examples\\Library.txt");
     public static int value = 1;
     private static Scanner input;
     public static Scanner in = new Scanner(System.in);
     public static Map<String, Integer> map = new HashMap<String, Integer>();
-
-    public static void actions()  {
-
-        System.out.println("Enter number of function wanted" + "\n1 Adding an entry"
-                + "\n2 Record search" + "\n3 Deleting an entry");
-        int choice = in.nextInt();
-        String wd = in.next();
-        switch(choice) {
-
-            case 1:
-                System.out.println("Please enter the key");
-                add(wd);
-                break;
-
-            case 2:
-                System.out.println("Please enter the key");
-                find(wd);
-                break;
-
-            case 3:
-                System.out.println("Please enter the key");
-                remove(wd);
-                break;
-        }
-
-    }
-
     public static void readFile() throws FileNotFoundException {
         input = new Scanner(file);
         boolean done = false;

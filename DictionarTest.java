@@ -1,7 +1,7 @@
 public class DictionarTest {
 
     public static void main(String[] args)  {
-            Dictionary test = new Dictionary();
+            Console test = new Console();
             test.actions();
     }
 }
