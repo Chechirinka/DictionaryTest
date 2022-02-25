@@ -8,7 +8,8 @@ import java.util.Scanner;
 
 public class WorkWithFile {
 
-    public static File file = new File( "E:\\Examples\\Library.txt");
+
+    public static File file = new File( StorageDictionary.LIBRARY);
     public static int value = 1;
     private static Scanner input;
     public static Scanner in = new Scanner(System.in);
