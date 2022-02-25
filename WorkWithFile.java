@@ -29,10 +29,9 @@ public class WorkWithFile {
                 done = true;
             }
         }
-        if (done == true) {
-            System.out.println("Success");
+
         }
-    }
+
     public static void add(String wd) {
         boolean done = false;
         String word = wd.toLowerCase();
@@ -56,14 +55,12 @@ public class WorkWithFile {
             }
         }
 
-        if (done == true) {
-            System.out.println("The key has been successfully added!");
+
         }
 
-    }
 
     public static void find(String wd) {
-        System.out.println("Please enter the key");
+
         String keyFind = wd.toLowerCase();
         for (Map.Entry<String, Integer> key : map.entrySet()) {
             if (key.getKey().startsWith(keyFind)) {
@@ -96,8 +93,6 @@ public class WorkWithFile {
             }
 
         }
-        if (done == true) {
-            System.out.println("The line has been successfully deleted!");
-        }
+
     }
 }
