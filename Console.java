@@ -23,7 +23,7 @@ public class Console {
 
             case 2:
 
-                worker.find(wd);
+                System.out.println( worker.find(wd));
                 break;
 
             case 3:

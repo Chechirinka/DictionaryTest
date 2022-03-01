@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class WorkWithFile {
-
+    public static final String ERROR_FIND= "Ничего не найдено";
 
     public static File file = new File( StorageDictionary.LIBRARY);
     public static int value = 1;
@@ -16,7 +16,6 @@ public class WorkWithFile {
     public static Map<String, Integer> map = new HashMap<String, Integer>();
     public static void readFile() throws FileNotFoundException {
         input = new Scanner(file);
-        boolean done = false;
 
         int value = 1;
 
@@ -26,14 +25,13 @@ public class WorkWithFile {
             for (int j = 0; j < line.length; j++) {
                 map.put(line[j], value);
                 value++;
-                done = true;
             }
         }
 
-        }
+    }
 
     public static void add(String wd) {
-        boolean done = false;
+
         String word = wd.toLowerCase();
         String[] line = word.split("[,\\s]+");
         for (int j = 0; j < line.length; j++) {
@@ -46,29 +44,30 @@ public class WorkWithFile {
                     BufferedWriter bw = new BufferedWriter(fw);
                     bw.write(map.toString());
                     bw.close();
-                    done = true;
-                } catch (Exception e) {
+
+                                  } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                continue;
             }
         }
+    }
 
 
-        }
-
-
-    public static void find(String wd) {
+    public static String find(String wd) {
+        String resultFind = "";//результат функции по поиску ключа
 
         String keyFind = wd.toLowerCase();
         for (Map.Entry<String, Integer> key : map.entrySet()) {
             if (key.getKey().startsWith(keyFind)) {
-                System.out.println(key.getKey());
+                resultFind = key.getKey();//если ключ найден мы присвоиваем результату этот ключ
+            } else {
+                resultFind = ERROR_FIND;//если он не найден присваиваем результату ошибку
             }
         }
+        return resultFind;
+        }
 
-    }
+
 
     public static void remove(String wd) {
         boolean done = false;
@@ -83,12 +82,9 @@ public class WorkWithFile {
                         BufferedWriter bw = new BufferedWriter(fw);
                         bw.write(map.toString());
                         bw.close();
-                        done = true;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else {
-                    continue;
                 }
             }
 
