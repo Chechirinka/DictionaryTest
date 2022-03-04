@@ -9,8 +9,7 @@ public class WorkWithFile {
     public static File file = new File(StorageDictionary.LIBRARY);
     public static int value = 1;
 
-    public static Map<String, Integer> map = new HashMap<String, Integer>();
-    public static void readFile()  {
+     public static void readFile()  {
         try (
                 FileReader fr = new FileReader(file);
                 BufferedReader br = new BufferedReader(fr)
