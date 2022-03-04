@@ -1,21 +1,19 @@
-import java.io.BufferedWriter;
-import java.io.File;
+
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class WorkWithFile {
+public class WorkWithMap {
     public static final String ERROR_FIND= "Ничего не найдено";
 
-    public static File file = new File( StorageDictionary.LIBRARY);
+  
     public static int value = 1;
     private static Scanner input;
-    public static Scanner in = new Scanner(System.in);
+   
     public static Map<String, Integer> map = new HashMap<String, Integer>();
     public static void readFile() throws FileNotFoundException {
-        input = new Scanner(file);
+ 
 
         int value = 1;
 
@@ -38,16 +36,6 @@ public class WorkWithFile {
             if (!map.containsKey(line[j])) {
                 map.put(line[j], value);
                 value++;
-
-                try {
-                    FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(map.toString());
-                    bw.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
@@ -77,14 +65,7 @@ public class WorkWithFile {
             for (Map.Entry<String, Integer> key : map.entrySet()) {
                 if (key.getKey().equals(line[j])) {
                     map.remove(key.getKey(), key.getValue());
-                    try {
-                        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        bw.write(map.toString());
-                        bw.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                   
                 }
             }
 
