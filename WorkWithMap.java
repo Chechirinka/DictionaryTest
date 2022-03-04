@@ -45,7 +45,7 @@ public class WorkWithFile {
                     bw.write(map.toString());
                     bw.close();
 
-                                  } catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -65,7 +65,7 @@ public class WorkWithFile {
             }
         }
         return resultFind;
-        }
+    }
 
 
 

@@ -6,7 +6,7 @@ public class Console {
 
     public static void actions()  {
 
-        WorkWithFile worker = new WorkWithFile();
+        WorkWithMap worker = new WorkWithMap();
         System.out.println("Enter number of function wanted" + "\n1 Adding an entry"
                 + "\n2 Record search" + "\n3 Deleting an entry");
 
