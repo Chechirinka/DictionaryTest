@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class WorkWithFile {
+public class WorkWithFile implements Dictionary {
 
     public static File file = new File(StorageDictionary.LIBRARY);
-    public static int value = 1;
-
-     public static void readFile()  {
+    @Override
+    public void read() {
         try (
                 FileReader fr = new FileReader(file);
                 BufferedReader br = new BufferedReader(fr)
@@ -18,7 +17,6 @@ public class WorkWithFile {
                 String line = br.readLine();
                 if (line != null) {
                     System.out.println(line);
-
                     ArrayList<String> result = new ArrayList<>();
                     result.add(line);
                 }
@@ -29,4 +27,22 @@ public class WorkWithFile {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void write(String wd) {
+        BufferedWriter bf = null;
+        try {
+            bf = new BufferedWriter(new FileWriter(file, true));
+            bf.write(wd);
+            bf.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bf.close();
+            } catch (Exception e){
+            }
+        }
+    }
 }
+
