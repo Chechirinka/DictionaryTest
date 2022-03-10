@@ -1,7 +1,8 @@
+
 public class DictionarTest {
 
-    public static void main(String[] args)  {
-            Console test = new Console();
-            test.actions();
-    }
+    public static void main(String[] args) {
+        Console test = new Console(new WorkWithFile(), new WorkWithMap());
+        test.actions();
+           }
 }

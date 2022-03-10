@@ -4,37 +4,26 @@ public class Console {
 
     public static Scanner in = new Scanner(System.in);
 
-    public static void actions()  {
 
-        WorkWithMap worker = new WorkWithMap();
-        System.out.println("Enter number of function wanted" + "\n1 Adding an entry"
-                + "\n2 Record search" + "\n3 Deleting an entry");
+    Dictionary dictionaryConsoleFile;
+    Dictionary dictionaryConsoleMap;
 
-        int choice = in.nextInt();
-        System.out.println("Please enter the key");
-        String wd = in.next();
-
-        switch(choice) {
-
+    public Console(Dictionary dcf, Dictionary dcm) {
+        dictionaryConsoleFile = dcf;
+        dictionaryConsoleMap = dcm;
+    }
+    int choice = in.nextInt();
+    public void actions() {
+        switch (choice) {
             case 1:
-                worker.add(wd);
-                System.out.println("The key has been successfully added!");
-                break;
-
+                String wd = in.next();
+        dictionaryConsoleFile.write(wd);
+        break;
             case 2:
-
-                System.out.println( worker.find(wd));
-                break;
-
-            case 3:
-
-                worker.remove(wd);
-                System.out.println("The line has been successfully deleted!");
-
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + choice);
-        }
-
+                String wd1 = in.next();
+        dictionaryConsoleMap.write(wd1);
+        break;
+    }
     }
 }
+
