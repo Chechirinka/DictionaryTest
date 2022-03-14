@@ -7,7 +7,7 @@ public class WorkWithMap implements Dictionary{
         List<String> mapRead = new ArrayList<>();
         for(String mapper: map.keySet()) {
             mapRead.add(mapper+":"+ map.get(mapper));
-            System.out.println(mapRead);
+
                     }
         return mapRead;
     }

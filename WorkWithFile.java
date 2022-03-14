@@ -4,7 +4,7 @@ import java.util.List;
 
     public class WorkWithFile implements Dictionary {
 
-        public static File file = new File("E:\\Examples\\Library.txt");
+        public static File file = new File("D:\\Dictionar.txt");
 
         public List<String> read() {
             String line = null;
