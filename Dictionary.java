@@ -1,4 +1,8 @@
+import java.util.List;
+
 interface Dictionary {
-     void read();
-     void write(String wd);
+    List<String> read();
+    void add(String key, String value);
+    void remove(String key) ;
+    String search(String key);
 }
