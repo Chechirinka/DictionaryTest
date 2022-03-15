@@ -2,39 +2,48 @@ import java.util.Scanner;
 
 public class Console {
 
-    public static Scanner in = new Scanner(System.in);
+    Scanner in = new Scanner(System.in);
+    DictionaryFactory factory = new DictionaryFactory();
+    Dictionary dictionaryConsoleFile;
 
-    public static void actions()  {
-
-        WorkWithMap worker = new WorkWithMap();
-        System.out.println("Enter number of function wanted" + "\n1 Adding an entry"
-                + "\n2 Record search" + "\n3 Deleting an entry");
-
-        int choice = in.nextInt();
-        System.out.println("Please enter the key");
-        String wd = in.next();
-
-        switch(choice) {
-
-            case 1:
-                worker.add(wd);
-                System.out.println("The key has been successfully added!");
+    public void actions(String inargs){
+        switch (inargs) {
+            case "map":
+                System.out.println("map");
+                Dictionary map = factory.getDictionary(InputTypes.MAP);
+                System.out.println("Введите действие: 1-write; 2 - read");
+                int inactionm = in.nextInt();
+                switch (inactionm){
+                    case 1:
+                        System.out.println("Введите значение : ключ");
+                        String wd = in.next();
+                        map.write(wd);
+                        break;
+                    case 2:
+                        for(String mapa: map.read()) {
+                            System.out.println(mapa);
+                        }
+                    break;
+                }
                 break;
-
-            case 2:
-
-                System.out.println( worker.find(wd));
-                break;
-
-            case 3:
-
-                worker.remove(wd);
-                System.out.println("The line has been successfully deleted!");
-
+            case "file":
+                System.out.println("file");
+                Dictionary file = factory.getDictionary(InputTypes.FILE);
+                System.out.println("Введите действие: 1-write; 2 - read");
+                int inactionf = in.nextInt();
+                switch (inactionf){
+                    case 1:
+                        System.out.println("Введите значение : ключ");
+                        String wd = in.next();
+                        file.write(wd);
+                        break;
+                    case 2:
+                        file.read();
+                        break;
+                }
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + choice);
+                throw new IllegalStateException("Unexpected value: " + inargs);
         }
-
     }
 }
