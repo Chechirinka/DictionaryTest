@@ -1,4 +1,5 @@
 
+
 public class DictionaryFactory {
 
     public Dictionary getDictionary (InputTypes type) {
@@ -14,3 +15,4 @@ public class DictionaryFactory {
         return dictionary;
     }
 }
+

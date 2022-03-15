@@ -4,7 +4,6 @@ public class Console {
 
     Scanner in = new Scanner(System.in);
     DictionaryFactory factory = new DictionaryFactory();
-
     public void actions(String inargs){
 
         switch (inargs) {

@@ -2,8 +2,10 @@ import java.util.*;
 
 public class WorkWithMap implements Dictionary{
 
+
     public static final String NO_KEY = "No key found!";
     public static final String KEY_DOES_NOT_EXIST = "This key does not exist!";
+
 
     public static Map<String, String> map = new HashMap<>();
     @Override
@@ -44,4 +46,3 @@ public class WorkWithMap implements Dictionary{
             }
         }
     }
-

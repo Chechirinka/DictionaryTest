@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Console {
@@ -73,4 +74,3 @@ public class Console {
         }
     }
 }
-
