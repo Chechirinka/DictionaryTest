@@ -44,4 +44,3 @@ public class WorkWithMap implements Dictionary{
             }
         }
     }
-
