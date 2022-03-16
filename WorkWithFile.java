@@ -1,76 +1,84 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Console {
+public class WorkWithFile implements Dictionary {
 
-    Scanner in = new Scanner(System.in);
-    DictionaryFactory factory = new DictionaryFactory();
+    public static File file = new File("E:\\Library.txt");
 
-    public void actions(String inargs){
 
-        switch (inargs) {
-            case "map":
-                    System.out.println("map");
-                    Dictionary map = factory.getDictionary(InputTypes.MAP);
-                while(true) {
-                    System.out.println("Введите действие: 1-add; 2 - read; 3 - remove; 4 - search");
-                    int inaction = in.nextInt();
-                    switch (inaction) {
-                        case 1:
-                            System.out.println("Введите ключ");
-                            String key = in.next();
-                            System.out.println("Введите значение");
-                            String value = in.next();
-                            map.add(key, value);
-                            break;
-                        case 2:
-                            for (String mapa : map.read()) {
-                                System.out.println(mapa);
-                            }
-                            break;
-                        case 3:
-                            System.out.println("Введите ключ");
-                            key = in.next();
-                            map.remove(key);
-                            break;
-                        case 4:
-                            System.out.println("Введите ключ");
-                            key = in.next();
-                            map.search(key);
-                            break;
-                    }
+    public List<String> read() {
+        String line = null;
+        List<String> result = new ArrayList<>();
+        try (
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr)
+        ) {
+            while (br.ready()) {
+                line = br.readLine();
+                if (line != null) {
+                    result.add(line);
                 }
-            case "file":
-                System.out.println("file");
-                Dictionary file = factory.getDictionary(InputTypes.FILE);
-                    while(true) {
-                        System.out.println("Введите действие: 1-add; 2 - read; 3 - remove; 4 - search");
-                        int inactionf = in.nextInt();
-                        switch (inactionf) {
-                            case 1:
-                                System.out.println("Введите ключ");
-                                String key = in.next();
-                                System.out.println("Введите значение");
-                                String value = in.next();
-                                file.add(key, value);
-                                break;
-                            case 2:
-                                System.out.println(file.read());
-                                break;
-                            case 3:
-                                System.out.println("Введите ключ");
-                                key = in.next();
-                                file.remove(key);
-                                break;
-                            case 4:
-                                System.out.println("Введите ключ");
-                                key = in.next();
-                                System.out.println(file.search(key));
-                                break;
-                        }
-                    }
-            default:
-                throw new IllegalStateException("Unexpected value: " + inargs);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    @Override
+    public void add(String key, String value) {
+        BufferedWriter bufferedWriter = null;
+        try {
+            FileWriter fileWriter = new FileWriter(file, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write("\n" + key + ":" + value);
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (Exception e) {
+            }
         }
     }
-}
 
+    @Override
+    public void remove(String key) {
+
+        List<String> readLines = read();
+        BufferedWriter bufferedWriter = null;
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            for (int i = 0; i < readLines.size(); i++) {
+                if (!key.equals(readLines.get(i).split(":")[0])) {
+                    bufferedWriter.write(readLines.get(i) + "\n");
+                }
+            }
+            bufferedWriter.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public String search(String key) {
+        List<String> searchLines = read();
+            for (int i = 0; i < searchLines.size(); i++) {
+                if (key.equals(searchLines.get(i).split(":")[0])) {
+                    return searchLines.get(i);
+                }
+            }
+        return null;
+    }
+}
