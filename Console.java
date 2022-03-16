@@ -5,6 +5,7 @@ public class Console {
     Scanner in = new Scanner(System.in);
     DictionaryFactory factory = new DictionaryFactory();
 
+
     public void actions(String inargs){
 
         switch (inargs) {
@@ -68,6 +69,7 @@ public class Console {
                                 break;
                         }
                     }
+
             default:
                 throw new IllegalStateException("Unexpected value: " + inargs);
         }
