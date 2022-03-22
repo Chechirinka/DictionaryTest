@@ -1,16 +1,18 @@
 
 public class DictionaryFactory {
 
-    public Dictionary getDictionary (InputTypes type) {
-        Dictionary dictionary = null;
-        switch (type) {
-            case MAP:
-                dictionary = new WorkWithMap();
-                break;
-            case FILE:
-                dictionary = new WorkWithFile();
-                break;
+    public static Dictionary getDictionary(String inargs) {
+
+        if (inargs.equalsIgnoreCase(InputTypes.MAP.name())) {
+            return new WorkWithMap();
+        } else {
+            return new WorkWithFile();
         }
-        return dictionary;
+
+    }
+
+    public static Dictionary createDefault() {
+
+        return new WorkWithFile();
     }
 }

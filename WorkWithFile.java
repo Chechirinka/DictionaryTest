@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 public class WorkWithFile implements Dictionary {
 
@@ -11,7 +12,7 @@ public class WorkWithFile implements Dictionary {
         String line = null;
         List<String> result = new ArrayList<>();
         try (
-                FileReader fr = new FileReader(file);
+                FileReader fr = new FileReader(file, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(fr)
         ) {
             while (br.ready()) {
@@ -33,7 +34,7 @@ public class WorkWithFile implements Dictionary {
     public void add(String key, String value) {
         BufferedWriter bufferedWriter = null;
         try {
-            FileWriter fileWriter = new FileWriter(file, true);
+            FileWriter fileWriter = new FileWriter(file,StandardCharsets.UTF_8 ,true);
             bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("\n" + key + ":" + value);
             bufferedWriter.flush();
