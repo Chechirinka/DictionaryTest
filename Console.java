@@ -4,8 +4,18 @@ import java.util.Scanner;
 
 public class Console {
 
-    private Dictionary dictionary;
+    public void choice(){
+        System.out.println(DictionaryType.DICTIONARY_ONE.dictionaryName());
+        System.out.println(DictionaryType.DICTIONARY_TWO.dictionaryName());
+        if (in.nextInt()==1){
+            dictionary.setDictionaryType(DictionaryType.DICTIONARY_ONE);
+        }
+        else {
+            dictionary.setDictionaryType(DictionaryType.DICTIONARY_TWO);
+        }
+    }
 
+    private Dictionary dictionary;
 
     Scanner in = new Scanner(System.in);
 
@@ -25,7 +35,7 @@ public class Console {
                     String key = in.next();
                     System.out.println("Введите значение");
                     String value = in.next();
-                    choice.add(key, value);
+                    System.out.println(choice.add(key, value));
                     break;
                 case 2:
                     System.out.println(choice.read());
@@ -45,10 +55,10 @@ public class Console {
             }
         }
     }
-
     private Dictionary getDictionary(){
         return dictionary;
     }
 }
+
 
 

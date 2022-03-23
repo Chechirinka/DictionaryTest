@@ -8,9 +8,7 @@ public class DictionaryFactory {
         } else {
             return new WorkWithFile();
         }
-
     }
-
     public static Dictionary createDefault() {
 
         return new WorkWithFile();

@@ -1,15 +1,18 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 
 public class WorkWithFile implements Dictionary {
 
+    private static final String ADD_KEY = "added";
+    private static final String SIMILARITY_TO_THE_PATTERN = "erorr";
+
     public static File file = new File("E:\\Library.txt");
 
-
     public List<String> read() {
-        String line = null;
+        String line;
         List<String> result = new ArrayList<>();
         try (
                 FileReader fr = new FileReader(file, StandardCharsets.UTF_8);
@@ -29,22 +32,26 @@ public class WorkWithFile implements Dictionary {
         return result;
     }
 
-
     @Override
-    public void add(String key, String value) {
-        BufferedWriter bufferedWriter = null;
-        try {
-            FileWriter fileWriter = new FileWriter(file,StandardCharsets.UTF_8 ,true);
-            bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + key + ":" + value);
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+    public String add(String key, String value) {
+        if (keyCheck(key) && valueCheck(value)) {
+            BufferedWriter bufferedWriter = null;
             try {
-                bufferedWriter.close();
-            } catch (Exception e) {
+                FileWriter fileWriter = new FileWriter(file, StandardCharsets.UTF_8, true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write("\n" + key + DictionaryType.getSymbol() + value);
+                bufferedWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    bufferedWriter.close();
+                } catch (Exception e) {
+                }
             }
+            return ADD_KEY;
+        } else {
+            return SIMILARITY_TO_THE_PATTERN;
         }
     }
 
@@ -57,7 +64,7 @@ public class WorkWithFile implements Dictionary {
             FileWriter fileWriter = new FileWriter(file);
             bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < readLines.size(); i++) {
-                if (!key.equals(readLines.get(i).split(":")[0])) {
+                if (!key.equals(readLines.get(i).split(DictionaryType.getSymbol())[0])) {
                     bufferedWriter.write(readLines.get(i) + "\n");
                 }
             }
@@ -75,11 +82,30 @@ public class WorkWithFile implements Dictionary {
 
     public String search(String key) {
         List<String> searchLines = read();
-            for (int i = 0; i < searchLines.size(); i++) {
-                if (key.equals(searchLines.get(i).split(":")[0])) {
-                    return searchLines.get(i);
-                }
+        for (int i = 0; i < searchLines.size(); i++) {
+            if (key.equals(searchLines.get(i).split(DictionaryType.getSymbol())[0])) {
+                return searchLines.get(i);
             }
+        }
         return null;
+    }
+
+    DictionaryType dictionaryType;
+
+    @Override
+    public void setDictionaryType(DictionaryType dictionaryType) {
+        this.dictionaryType = dictionaryType;
+    }
+
+    @Override
+    public boolean keyCheck(String key) {
+        String patKey = dictionaryType.getPatternKey();
+        return Pattern.matches(patKey, key);
+    }
+
+    @Override
+    public boolean valueCheck(String value) {
+        String patValue = dictionaryType.getPatternValue();
+        return Pattern.matches(patValue, value);
     }
 }
