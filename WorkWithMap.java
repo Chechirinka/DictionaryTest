@@ -51,11 +51,14 @@ public class WorkWithMap implements Dictionary{
             return KEY_DOES_NOT_EXIST;
             }
         }
+
     DictionaryType dictionaryType;
+    private String path;
 
     @Override
     public void setDictionaryType(DictionaryType dictionaryType) {
         this.dictionaryType = dictionaryType;
+        this.path = path;
     }
 
     @Override
@@ -70,4 +73,6 @@ public class WorkWithMap implements Dictionary{
         return Pattern.matches(patValue, value);
     }
 }
+
+
 

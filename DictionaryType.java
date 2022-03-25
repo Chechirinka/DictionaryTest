@@ -1,6 +1,7 @@
+
 public enum DictionaryType {
-    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[а-яёА-ЯЁ]+", "E:/DictionaryE.txt", "русско - английский"),
-    DICTIONARY_TWO(2, "^[0-9]{5}$", "[а-яёА-ЯЁ]+", "E:/DictionaryD.txt", "циферко - русский");
+    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "E:/DictionaryE.txt", "англо - англо"),
+    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "E:/DictionaryD.txt", "циферко - англо");
 
     private static final String splitChar = ":";
     private final Integer number;
@@ -33,8 +34,11 @@ public enum DictionaryType {
         return patternValue;
     }
 
-
     public String dictionaryName() {
         return dictionaryName;
+    }
+
+    public String getDictionaryPath() {
+        return dictionaryPath;
     }
 }

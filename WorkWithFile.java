@@ -15,7 +15,7 @@ public class WorkWithFile implements Dictionary {
         String line;
         List<String> result = new ArrayList<>();
         try (
-                FileReader fr = new FileReader(file, StandardCharsets.UTF_8);
+                FileReader fr = new FileReader(path, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(fr)
         ) {
             while (br.ready()) {
@@ -37,7 +37,7 @@ public class WorkWithFile implements Dictionary {
         if (keyCheck(key) && valueCheck(value)) {
             BufferedWriter bufferedWriter = null;
             try {
-                FileWriter fileWriter = new FileWriter(file, StandardCharsets.UTF_8, true);
+                FileWriter fileWriter = new FileWriter(path, StandardCharsets.UTF_8, true);
                 bufferedWriter = new BufferedWriter(fileWriter);
                 bufferedWriter.write("\n" + key + DictionaryType.getSymbol() + value);
                 bufferedWriter.flush();
@@ -61,7 +61,7 @@ public class WorkWithFile implements Dictionary {
         List<String> readLines = read();
         BufferedWriter bufferedWriter = null;
         try {
-            FileWriter fileWriter = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(path);
             bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i < readLines.size(); i++) {
                 if (!key.equals(readLines.get(i).split(DictionaryType.getSymbol())[0])) {
@@ -91,10 +91,12 @@ public class WorkWithFile implements Dictionary {
     }
 
     DictionaryType dictionaryType;
+    private String path;
 
     @Override
     public void setDictionaryType(DictionaryType dictionaryType) {
         this.dictionaryType = dictionaryType;
+        this.path = dictionaryType.getDictionaryPath();
     }
 
     @Override
@@ -108,4 +110,5 @@ public class WorkWithFile implements Dictionary {
         String patValue = dictionaryType.getPatternValue();
         return Pattern.matches(patValue, value);
     }
-}
+
+ }
