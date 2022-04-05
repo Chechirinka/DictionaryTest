@@ -1,18 +1,25 @@
-import java.util.*;
-import java.util.regex.Pattern;
+package controller;
 
-public class WorkWithMap implements Dictionary{
+import configuration.DictionaryType;
+import validator.Validation;
+
+import java.util.*;
+
+public class WorkWithMap implements Dictionary {
 
     private static final String ADD_KEY = "added";
     private static final String SIMILARITY_TO_THE_PATTERN = "erorr";
     public static final String NO_KEY = "No key found!";
     public static final String KEY_DOES_NOT_EXIST = "This key does not exist!";
 
+    Validation validation;
+
     public static Map<String, String> map = new HashMap<>();
+
     @Override
     public List<String> read() {
         List<String> mapRead = new ArrayList<>();
-        for(String mapper: map.keySet()) {
+        for (String mapper : map.keySet()) {
             mapRead.add(mapper + DictionaryType.getSymbol() + map.get(mapper));
         }
         return mapRead;
@@ -20,7 +27,7 @@ public class WorkWithMap implements Dictionary{
 
     @Override
     public String add(String key, String value) {
-        if (keyCheck(key) && valueCheck(value)) {
+        if (validation.keyCheck(key) && validation.valueCheck(value)) {
             map.put(key, value);
             return ADD_KEY;
         } else {
@@ -49,30 +56,15 @@ public class WorkWithMap implements Dictionary{
             return searchResult;
         } else {
             return KEY_DOES_NOT_EXIST;
-            }
         }
-
-    DictionaryType dictionaryType;
-    private String path;
+    }
 
     @Override
     public void setDictionaryType(DictionaryType dictionaryType) {
-        this.dictionaryType = dictionaryType;
-        this.path = path;
-    }
-
-    @Override
-    public boolean keyCheck(String key) {
-        String patKey =  dictionaryType.getPatternKey();
-        return Pattern.matches(patKey, key);
-    }
-
-    @Override
-    public boolean valueCheck(String value) {
-        String patValue =  dictionaryType.getPatternValue();
-        return Pattern.matches(patValue, value);
+        validation = new Validation(dictionaryType.getPatternValue(), dictionaryType.getPatternKey());
     }
 }
+
 
 
 

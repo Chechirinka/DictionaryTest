@@ -1,3 +1,4 @@
+package configuration;
 
 public enum DictionaryType {
     DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "E:/DictionaryE.txt", "англо - англо"),
@@ -26,13 +27,9 @@ public enum DictionaryType {
         return number;
     }
 
-    public String getPatternKey() {
-        return patternKey;
-    }
+    public String getPatternKey() {return patternKey;}
 
-    public String getPatternValue() {
-        return patternValue;
-    }
+    public String getPatternValue() {return patternValue;}
 
     public String dictionaryName() {
         return dictionaryName;
@@ -41,4 +38,5 @@ public enum DictionaryType {
     public String getDictionaryPath() {
         return dictionaryPath;
     }
-}
+    }
+

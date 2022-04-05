@@ -1,3 +1,10 @@
+package view;
+
+import configuration.DictionaryType;
+import controller.Dictionary;
+
+
+
 
 import java.util.Scanner;
 

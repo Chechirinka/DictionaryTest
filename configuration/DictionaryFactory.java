@@ -1,3 +1,10 @@
+package configuration;
+
+import controller.Dictionary;
+import controller.WorkWithFile;
+import controller.WorkWithMap;
+
+
 
 public class DictionaryFactory {
 
@@ -10,7 +17,6 @@ public class DictionaryFactory {
         }
     }
     public static Dictionary createDefault() {
-
         return new WorkWithFile();
     }
 }
