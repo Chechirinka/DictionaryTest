@@ -15,7 +15,7 @@ public class FileService {
     private String path;
 
     public FileService(String path) {
-this.path = path;
+        this.path = path;
     }
 
     private static final String ADD_KEY = "added";
@@ -52,18 +52,18 @@ this.path = path;
     public List<String> read() {
 
         List<String> results = new ArrayList<String>();
-       try {
-           BufferedReader reader = new BufferedReader(new FileReader(path));
-           String line = reader.readLine();
-           while (line != null) {
-               results.add(line);
-               line = reader.readLine();
-           }
-       } catch (FileNotFoundException e) {
-           e.printStackTrace();
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+            while (line != null) {
+                results.add(line);
+                line = reader.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return results;
 
     }

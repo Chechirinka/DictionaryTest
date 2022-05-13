@@ -1,5 +1,8 @@
-set DIR_PROJECT=OOP
-del /s %DIR_BIN%\*.class >NUL
-javac DictionarTest.java 
-java DictionarTest file 
+
+xcopy /S /Y /D src\main\resources\ bin\classes\resources
+
+javac -d bin/classes -sourcepath src/main/java src/main/java/*.java
+
+java -classpath bin/classes DictionarTest file
+
 pause
