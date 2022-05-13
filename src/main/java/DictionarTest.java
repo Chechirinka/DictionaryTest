@@ -1,4 +1,3 @@
-
 import configuration.DictionaryFactory;
 import view.Console;
 

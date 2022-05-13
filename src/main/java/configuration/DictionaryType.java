@@ -1,8 +1,8 @@
 package configuration;
 
 public enum DictionaryType {
-    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "E:/DictionaryE.txt", "англо - англо"),
-    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "E:/DictionaryD.txt", "циферко - англо");
+    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "src/main/resources/DictionaryE.txt", "English"),
+    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "src/main/resources/DictionaryD.txt", "Digital");
 
     private static final String splitChar = ":";
     private final Integer number;
@@ -31,8 +31,7 @@ public enum DictionaryType {
 
     public String getPatternValue() {return patternValue;}
 
-    public String dictionaryName() {
-        return dictionaryName;
+    public String getDictionaryName() {return dictionaryName;
     }
 
     public String getDictionaryPath() {
