@@ -5,7 +5,7 @@ import controller.Dictionary;
 import java.util.Scanner;
 
 import static configuration.DictionaryType.*;
-import static configuration.DictionaryType.DICTIONARY_ONE;
+
 
 public class Console {
 
@@ -64,7 +64,6 @@ public class Console {
         }
     }
     private Dictionary getDictionary(){
-
         return dictionary;
     }
 }

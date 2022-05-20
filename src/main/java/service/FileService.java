@@ -4,9 +4,10 @@ package service;
 import configuration.DictionaryType;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.*;
 
 
 public class FileService {
@@ -34,8 +35,9 @@ public class FileService {
 
         BufferedWriter bufferedWriter = null;
         try {
-            FileWriter fileWriter = new FileWriter(path, StandardCharsets.UTF_8, true);
+            FileWriter fileWriter = new FileWriter(path, UTF_8, true);
             bufferedWriter = new BufferedWriter(fileWriter);
+
             bufferedWriter.write(key + DictionaryType.getSymbol() + value + "\n");
             bufferedWriter.flush();
         } catch (IOException e) {

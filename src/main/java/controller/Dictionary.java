@@ -1,6 +1,6 @@
 package controller;
 
-
+import validator.*;
 import configuration.DictionaryType;
 
 import java.util.List;
@@ -11,4 +11,5 @@ public interface Dictionary {
     void remove(String key) ;
     String search(String key);
     void setDictionaryType(DictionaryType dictionaryType);
+
 }

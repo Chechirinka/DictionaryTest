@@ -4,8 +4,6 @@ import controller.Dictionary;
 import controller.WorkWithFile;
 import controller.WorkWithMap;
 
-
-
 public class DictionaryFactory {
 
     public static Dictionary getDictionary(String inargs) {
@@ -15,8 +13,5 @@ public class DictionaryFactory {
         } else {
             return new WorkWithFile();
         }
-    }
-    public static Dictionary createDefault() {
-        return new WorkWithFile();
     }
 }

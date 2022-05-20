@@ -1,6 +1,8 @@
 package controller;
 
 import configuration.DictionaryType;
+
+import validator.ValidInterface;
 import validator.Validation;
 
 import java.util.*;
@@ -12,7 +14,8 @@ public class WorkWithMap implements Dictionary {
     public static final String NO_KEY = "No key found!";
     public static final String KEY_DOES_NOT_EXIST = "This key does not exist!";
 
-    Validation validation;
+   private ValidInterface validInterface;
+
 
     public static Map<String, String> map = new HashMap<>();
 
@@ -27,7 +30,7 @@ public class WorkWithMap implements Dictionary {
 
     @Override
     public String add(String key, String value) {
-        if (validation.keyCheck(key) && validation.valueCheck(value)) {
+        if (validInterface.isValidPair(key, value)) {
             map.put(key, value);
             return ADD_KEY;
         } else {
@@ -61,7 +64,7 @@ public class WorkWithMap implements Dictionary {
 
     @Override
     public void setDictionaryType(DictionaryType dictionaryType) {
-        validation = new Validation(dictionaryType.getPatternValue(), dictionaryType.getPatternKey());
+        validInterface = new Validation(dictionaryType.getPatternValue(), dictionaryType.getPatternKey());
     }
 }
 
