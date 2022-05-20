@@ -13,12 +13,17 @@ public class Validation implements ValidInterface{
     }
 
     @Override
-    public boolean keyCheck(String key) {
+    public boolean isValidKey(String key) {
         return Pattern.matches(keyPattern, key);
     }
 
     @Override
-    public boolean valueCheck(String value) {
+    public boolean isValidValue(String value) {
         return Pattern.matches(valuePattern, value);
+    }
+
+    @Override
+    public boolean isValidPair(String key, String value) {
+        return isValidKey(key) && isValidValue(value);
     }
 }

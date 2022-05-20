@@ -1,6 +1,7 @@
 package controller;
 import configuration.DictionaryType;
 import service.FileService;
+import validator.ValidInterface;
 import validator.Validation;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class WorkWithFile implements Dictionary {
     private static final String SIMILARITY_TO_THE_PATTERN = "erorr";
 
     FileService fileService;
-    Validation validation;
+    private ValidInterface validInterface;
 
 
     public List<String> read() {
@@ -21,7 +22,7 @@ public class WorkWithFile implements Dictionary {
 
     @Override
     public String add(String key, String value) {
-        if (validation.keyCheck(key) && validation.valueCheck(value)) {
+        if (validInterface.isValidPair(key, value)) {
             return fileService.write(key, value);
         }
         else {
@@ -60,6 +61,6 @@ public class WorkWithFile implements Dictionary {
     @Override
     public void setDictionaryType(DictionaryType dictionaryType) {
         fileService = new FileService(dictionaryType.getDictionaryPath());
-        validation = new Validation(dictionaryType.getPatternValue(), dictionaryType.getPatternKey());
+        validInterface = new Validation(dictionaryType.getPatternValue(), dictionaryType.getPatternKey());
     }
 }
