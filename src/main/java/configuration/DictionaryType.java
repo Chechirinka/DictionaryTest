@@ -9,33 +9,32 @@ public enum DictionaryType {
     private final String patternKey;
     private final String patternValue;
     private final String dictionaryPath;
-    private final String dictionaryName;
 
     DictionaryType(Integer number, String patternKey, String patternValue, String dictionaryPath, String dictionaryName) {
         this.number = number;
         this.patternKey = patternKey;
         this.patternValue = patternValue;
         this.dictionaryPath = dictionaryPath;
-        this.dictionaryName = dictionaryName;
     }
 
     public static String getSymbol() {
         return splitChar;
     }
 
+<<<<<<< Updated upstream
     public Integer getNumber() {
         return number;
     }
+=======
+    public Integer getNumber() {return number;}
+>>>>>>> Stashed changes
 
     public String getPatternKey() {return patternKey;}
 
     public String getPatternValue() {return patternValue;}
 
-    public String getDictionaryName() {return dictionaryName;
-    }
-
     public String getDictionaryPath() {
         return dictionaryPath;
     }
-    }
+}
 

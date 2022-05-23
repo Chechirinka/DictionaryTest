@@ -1,14 +1,16 @@
 package view;
 
-import controller.Dictionary;
-
 import java.util.Scanner;
+<<<<<<< Updated upstream
 
 import static configuration.DictionaryType.*;
+=======
+>>>>>>> Stashed changes
 
 
 public class Console {
 
+<<<<<<< Updated upstream
     public void choice(){
         System.out.println("Select dictionary:");
         System.out.println(DICTIONARY_ONE.getNumber() + " " +
@@ -21,6 +23,19 @@ public class Console {
         else {
             dictionary.setDictionaryType(DICTIONARY_TWO);
         }
+=======
+    DictionaryService dictionaryService = new DictionaryService();
+
+    private Dictionary dictionary;
+    public void choice(String selection){
+        System.out.println("Select lang: 1 - English; 2 - Digital;");
+        try{
+            dictionary = new Dictionary(selection, in.nextInt());
+        }
+        catch(DictionaryException dictionaryException) {
+            System.err.println(dictionaryException.getMessage());
+        }
+>>>>>>> Stashed changes
     }
 
     private Dictionary dictionary;
@@ -67,6 +82,3 @@ public class Console {
         return dictionary;
     }
 }
-
-
-
