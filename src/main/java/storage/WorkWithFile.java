@@ -1,11 +1,10 @@
-package controller;
+package storage;
 import configuration.DictionaryType;
 import service.FileService;
 import validator.ValidInterface;
 import validator.Validation;
 
 import java.util.List;
-
 
 public class WorkWithFile implements Dictionary {
 
@@ -46,7 +45,6 @@ public class WorkWithFile implements Dictionary {
             fileService.write(keyAndValue[0], keyAndValue[1]);
         }
     }
-
 
     public String search(String key) {
         List<String> searchLines = fileService.read();

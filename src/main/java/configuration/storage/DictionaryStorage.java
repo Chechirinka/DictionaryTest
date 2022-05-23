@@ -1,15 +1,13 @@
-package controller;
+package storage;
 
-import validator.*;
 import configuration.DictionaryType;
 
 import java.util.List;
 
-public interface Dictionary {
+public interface DictionaryStorage {
     List<String> read();
     String add(String key, String value);
     void remove(String key) ;
     String search(String key);
-    void setDictionaryType(DictionaryType dictionaryType);
 
 }

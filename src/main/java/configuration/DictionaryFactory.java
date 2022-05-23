@@ -1,8 +1,8 @@
 package configuration;
 
-import controller.Dictionary;
-import controller.WorkWithFile;
-import controller.WorkWithMap;
+import storage.Dictionary;
+import storage.WorkWithFile;
+import storage.WorkWithMap;
 
 public class DictionaryFactory {
 
