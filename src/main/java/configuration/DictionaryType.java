@@ -23,9 +23,13 @@ public enum DictionaryType {
         return splitChar;
     }
 
+<<<<<<< Updated upstream
     public Integer getNumber() {
         return number;
     }
+=======
+    public Integer getNumber() {return number;}
+>>>>>>> Stashed changes
 
     public String getPatternKey() {return patternKey;}
 
