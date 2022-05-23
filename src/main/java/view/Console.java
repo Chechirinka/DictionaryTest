@@ -1,25 +1,22 @@
 package view;
 
 import java.util.Scanner;
-
 import service.DictionaryException;
 import service.DictionaryService;
-import storage.Dictionary;
 
 public class Console {
 
-    DictionaryService dictionaryService = new DictionaryService();
-
-    private Dictionary dictionary;
+    private DictionaryService dictionaryService;
     public void choice(String selection){
         System.out.println("Select lang: 1 - English; 2 - Digital;");
         try{
-            dictionary = new Dictionary(selection, in.nextInt());
+            dictionaryService = new DictionaryService(selection, in.nextInt());
         }
         catch(DictionaryException dictionaryException) {
             System.err.println(dictionaryException.getMessage());
         }
     }
+    
     Scanner in = new Scanner(System.in);
 
     public void actions() {
@@ -33,20 +30,20 @@ public class Console {
                     String key = in.next();
                     System.out.println("Enter value");
                     String value = in.next();
-                    System.out.println(dictionaryService.addService(key, value, dictionary));
+                    System.out.println(dictionaryService.addService(key, value));
                     break;
                 case 2:
-                    System.out.println(dictionaryService.readService(dictionary));
+                    System.out.println(dictionaryService.readService());
                     break;
                 case 3:
                     System.out.println("Enter key");
                     key = in.next();
-                    dictionaryService.removeService(key, dictionary);
+                    dictionaryService.removeService(key);
                     break;
                 case 4:
                     System.out.println("Enter key");
                     key = in.next();
-                    System.out.println(dictionaryService.searchService(key, dictionary));
+                    System.out.println(dictionaryService.searchService(key));
                     break;
                 case 5:
                     a = false;
@@ -54,6 +51,5 @@ public class Console {
         }
     }
 }
-
 
 
