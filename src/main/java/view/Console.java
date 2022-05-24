@@ -1,39 +1,27 @@
 package view;
 
-import controller.Dictionary;
-
 import java.util.Scanner;
-
-import static configuration.DictionaryType.*;
-
+import service.DictionaryException;
+import service.DictionaryService;
 
 public class Console {
 
-    public void choice(){
-        System.out.println("Select dictionary:");
-        System.out.println(DICTIONARY_ONE.getNumber() + " " +
-                DICTIONARY_ONE.getDictionaryName());
-        System.out.println(DICTIONARY_TWO.getNumber() + " " +
-                DICTIONARY_TWO.getDictionaryName());
-        if (in.nextInt()==1){
-            dictionary.setDictionaryType(DICTIONARY_ONE);
+    private DictionaryService dictionaryService;
+
+    public void choice(String selection){
+        System.out.println("Select lang: 1 - English; 2 - Digital;");
+        try{
+            dictionaryService = new DictionaryService(selection, in.nextInt());
         }
-        else {
-            dictionary.setDictionaryType(DICTIONARY_TWO);
+        catch(DictionaryException dictionaryException) {
+            System.err.println(dictionaryException.getMessage());
         }
     }
-
-    private Dictionary dictionary;
-
+    
     Scanner in = new Scanner(System.in);
-
-    public Console(Dictionary dictionary) {
-        this.dictionary = dictionary;
-    }
 
     public void actions() {
         boolean a = true;
-        Dictionary choice = getDictionary();
         while (a) {
             System.out.println("Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit");
             int inaction = in.nextInt();
@@ -43,30 +31,26 @@ public class Console {
                     String key = in.next();
                     System.out.println("Enter value");
                     String value = in.next();
-                    System.out.println(choice.add(key, value));
+                    System.out.println(dictionaryService.addService(key, value));
                     break;
                 case 2:
-                    System.out.println(choice.read());
+                    System.out.println(dictionaryService.readService());
                     break;
                 case 3:
                     System.out.println("Enter key");
                     key = in.next();
-                    choice.remove(key);
+                    dictionaryService.removeService(key);
                     break;
                 case 4:
                     System.out.println("Enter key");
                     key = in.next();
-                    System.out.println(choice.search(key));
+                    System.out.println(dictionaryService.searchService(key));
                     break;
                 case 5:
                     a = false;
             }
         }
     }
-    private Dictionary getDictionary(){
-        return dictionary;
-    }
 }
-
 
 

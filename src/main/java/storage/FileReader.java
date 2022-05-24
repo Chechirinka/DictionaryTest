@@ -1,8 +1,6 @@
-package service;
-
+package storage;
 
 import configuration.DictionaryType;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +8,11 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.*;
 
 
-public class FileService {
-
+public class FileReader {
 
     private String path;
 
-    public FileService(String path) {
+    public FileReader(String path) {
         this.path = path;
     }
 
@@ -55,7 +52,7 @@ public class FileService {
 
         List<String> results = new ArrayList<String>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
             String line = reader.readLine();
             while (line != null) {
                 results.add(line);
@@ -67,7 +64,5 @@ public class FileService {
             e.printStackTrace();
         }
         return results;
-
     }
 }
-

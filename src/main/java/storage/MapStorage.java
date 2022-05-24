@@ -1,4 +1,4 @@
-package controller;
+package storage;
 
 import configuration.DictionaryType;
 
@@ -7,7 +7,7 @@ import validator.Validation;
 
 import java.util.*;
 
-public class WorkWithMap implements Dictionary {
+public class MapStorage implements DictionaryStorage {
 
     private static final String ADD_KEY = "added";
     private static final String SIMILARITY_TO_THE_PATTERN = "erorr";
@@ -60,11 +60,6 @@ public class WorkWithMap implements Dictionary {
         } else {
             return KEY_DOES_NOT_EXIST;
         }
-    }
-
-    @Override
-    public void setDictionaryType(DictionaryType dictionaryType) {
-        validInterface = new Validation(dictionaryType.getPatternValue(), dictionaryType.getPatternKey());
     }
 }
 
