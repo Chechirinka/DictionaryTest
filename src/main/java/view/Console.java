@@ -1,7 +1,6 @@
 package view;
 
 import java.util.Scanner;
-
 import service.DictionaryException;
 import service.DictionaryService;
 
@@ -18,6 +17,7 @@ public class Console {
             System.err.println(dictionaryException.getMessage());
         }
     }
+    
     Scanner in = new Scanner(System.in);
 
     public void actions() {
@@ -52,6 +52,5 @@ public class Console {
         }
     }
 }
-
 
 
