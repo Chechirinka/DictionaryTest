@@ -1,5 +1,7 @@
 package configuration;
 
+import service.DictionaryException;
+
 public enum DictionaryType {
     DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "src/main/resources/DictionaryE.txt", "English"),
     DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "src/main/resources/DictionaryD.txt", "Digital");
@@ -21,14 +23,30 @@ public enum DictionaryType {
         return splitChar;
     }
 
-    public Integer getNumber() {return number;}
+    public Integer getNumber() {
+        return number;
+    }
 
-    public String getPatternKey() {return patternKey;}
+    public String getPatternKey() {
+        return patternKey;
+    }
 
-    public String getPatternValue() {return patternValue;}
+    public String getPatternValue() {
+        return patternValue;
+    }
 
     public String getDictionaryPath() {
         return dictionaryPath;
     }
+
+   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws DictionaryException{
+        for (DictionaryType dictionaryType : DictionaryType.values()) {
+            if (dictionaryType.getNumber().equals(number)) {
+                return dictionaryType;
+            }
+        }  throw new DictionaryException("Ошибка, такого словаря нет");
+    }
 }
+
+
 

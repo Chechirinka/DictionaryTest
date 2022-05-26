@@ -1,46 +1,92 @@
 package storage;
 import configuration.DictionaryType;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class FileStorage implements DictionaryStorage {
 
+    public String path;
+
     private static final String ADD_KEY = "added";
-    private static final String SIMILARITY_TO_THE_PATTERN = "erorr";
 
-    FileReader fileReader;
-    public List<String> read() {
-        return fileReader.read();
+    public void fileClear() {
+        try {
+            new FileWriter(path, false).close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 
-    public FileStorage(FileReader fileReader){
-        this.fileReader = fileReader;
+    public String write(String key, String value, String path) {
+
+        BufferedWriter bufferedWriter = null;
+        try {
+            FileWriter fileWriter = new FileWriter(path, UTF_8, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(key + DictionaryType.getSymbol() + value + "\n");
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (Exception e) {
+            }
+        }
+        return ADD_KEY;
+    }
+
+    public List<String> operationRead(String path) {
+
+        List<String> results = new ArrayList<String>();
+        try {
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
+            String line = reader.readLine();
+            while (line != null) {
+                results.add(line);
+                line = reader.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     @Override
-    public String add(String key, String value) {
-        return fileReader.write(key, value);
+    public List<String> read(DictionaryType selectedDictionary) {
+        return operationRead(selectedDictionary.getDictionaryPath());
     }
 
     @Override
-    public void remove(String key) {
+    public String add(String key, String value, DictionaryType selectedDictionary) {
+        return write(key, value, selectedDictionary.getDictionaryPath());
+    }
 
-        List<String> readLines = fileReader.read();
+    @Override
+    public void remove(String key, DictionaryType selectedDictionary) {
+
+        List<String> readLines = operationRead(selectedDictionary.getDictionaryPath());
         for (int i = 0; i < readLines.size(); i++) {
             if (key.equals(readLines.get(i).split(DictionaryType.getSymbol())[0])) {
                 readLines.remove(i);
                 break;
             }
         }
-        fileReader.fileClear();
+        fileClear();
         for (String readLine : readLines) {
             String[] keyAndValue = readLine.split(DictionaryType.getSymbol());
-            fileReader.write(keyAndValue[0], keyAndValue[1]);
+            write(keyAndValue[0], keyAndValue[1], selectedDictionary.getDictionaryPath());
         }
     }
 
-    public String search(String key) {
-        List<String> searchLines = fileReader.read();
+    public String search(String key, DictionaryType selectedDictionary) {
+        List<String> searchLines = operationRead(selectedDictionary.getDictionaryPath());
         for (int i = 0; i < searchLines.size(); i++) {
             if (key.equals(searchLines.get(i).split(DictionaryType.getSymbol())[0])) {
                 return searchLines.get(i);

@@ -1,7 +1,7 @@
 package validator;
 
+import configuration.DictionaryType;
+
 public interface ValidInterface {
-    boolean isValidPair(String key, String value);
-    boolean isValidKey(String key);
-    boolean isValidValue(String value);
+    boolean isValidPair(String key, String value, DictionaryType dictionaryType);
 }

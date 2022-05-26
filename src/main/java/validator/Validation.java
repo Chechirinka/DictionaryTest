@@ -1,29 +1,21 @@
 package validator;
 
+import configuration.DictionaryType;
+
 import java.util.regex.Pattern;
 
 public class Validation implements ValidInterface{
 
-    String valuePattern;
-    String keyPattern;
-
-    public Validation(String valuePattern, String keyPattern){
-        this.valuePattern = valuePattern;
-        this.keyPattern = keyPattern;
-    }
-
-    @Override
-    public boolean isValidKey(String key) {
+    private boolean isValidKey(String key,  String keyPattern) {
         return Pattern.matches(keyPattern, key);
     }
 
-    @Override
-    public boolean isValidValue(String value) {
+    private boolean isValidValue(String value, String valuePattern) {
         return Pattern.matches(valuePattern, value);
     }
 
     @Override
-    public boolean isValidPair(String key, String value) {
-        return isValidKey(key) && isValidValue(value);
+    public boolean isValidPair(String key, String value, DictionaryType dictionaryType) {
+        return isValidKey(key, dictionaryType.getPatternKey()) && isValidValue(value, dictionaryType.getPatternValue());
     }
 }
