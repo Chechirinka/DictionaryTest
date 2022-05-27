@@ -1,20 +1,24 @@
-package service;
+package dictionarySpring.service;
 
-import configuration.DictionaryType;
-import storage.*;
-import validator.ValidInterface;
+import dictionarySpring.configuration.DictionaryType;
+import dictionarySpring.storage.*;
+import dictionarySpring.validator.ValidInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class DictionaryService {
 
     private final ValidInterface validInterface;
     private final DictionaryStorage dictionaryStorage;
 
+    @Autowired
     public DictionaryService(ValidInterface validInterface, DictionaryStorage dictionaryStorage) {
         this.validInterface=validInterface;
-        this.dictionaryStorage= dictionaryStorage;
+        this.dictionaryStorage = dictionaryStorage;
     }
-
 
     public String addService(String key, String value, DictionaryType selectedDictionary) {
         if (validInterface.isValidPair(key, value, selectedDictionary)) {

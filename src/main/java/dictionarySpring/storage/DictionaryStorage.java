@@ -1,6 +1,6 @@
-package storage;
+package dictionarySpring.storage;
 
-import configuration.DictionaryType;
+import dictionarySpring.configuration.DictionaryType;
 
 import java.util.List;
 

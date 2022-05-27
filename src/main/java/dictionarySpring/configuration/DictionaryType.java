@@ -1,10 +1,10 @@
-package configuration;
+package dictionarySpring.configuration;
 
-import service.DictionaryException;
+import dictionarySpring.service.DictionaryException;
 
 public enum DictionaryType {
-    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "src/main/resources/DictionaryE.txt", "English"),
-    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "src/main/resources/DictionaryD.txt", "Digital");
+    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "DictionaryE.txt", "English"),
+    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "DictionaryD.txt", "Digital");
 
     private static final String splitChar = ":";
     private final Integer number;

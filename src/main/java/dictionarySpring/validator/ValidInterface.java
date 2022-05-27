@@ -1,6 +1,6 @@
-package validator;
+package dictionarySpring.validator;
 
-import configuration.DictionaryType;
+import dictionarySpring.configuration.DictionaryType;
 
 public interface ValidInterface {
     boolean isValidPair(String key, String value, DictionaryType dictionaryType);

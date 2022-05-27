@@ -1,8 +1,9 @@
-package storage;
+package dictionarySpring.storage;
 
-import configuration.DictionaryType;
+import dictionarySpring.configuration.DictionaryType;
 
 import java.util.*;
+
 
 public class MapStorage implements DictionaryStorage {
 
@@ -22,7 +23,6 @@ public class MapStorage implements DictionaryStorage {
 
     @Override
     public String add(String key, String value, DictionaryType selectedDictionary) {
-
         return map.put(key, value);
     }
 

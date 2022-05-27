@@ -1,9 +1,11 @@
-package validator;
+package dictionarySpring.validator;
 
-import configuration.DictionaryType;
+import dictionarySpring.configuration.DictionaryType;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
 
+@Component
 public class Validation implements ValidInterface{
 
     private boolean isValidKey(String key,  String keyPattern) {

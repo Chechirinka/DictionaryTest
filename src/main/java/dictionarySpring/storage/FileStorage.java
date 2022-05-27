@@ -1,5 +1,7 @@
-package storage;
-import configuration.DictionaryType;
+package dictionarySpring.storage;
+
+import dictionarySpring.configuration.DictionaryType;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -7,25 +9,28 @@ import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+
 public class FileStorage implements DictionaryStorage {
 
-    public String path;
 
     private static final String ADD_KEY = "added";
 
-    public void fileClear() {
+    public void fileClear(String path) {
         try {
             new FileWriter(path, false).close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
+ private  File getDictionaryFile(String path) throws IOException {
+     return new ClassPathResource(path).getFile();
+ }
 
     public String write(String key, String value, String path) {
 
         BufferedWriter bufferedWriter = null;
         try {
-            FileWriter fileWriter = new FileWriter(path, UTF_8, true);
+            FileWriter fileWriter = new FileWriter(getDictionaryFile(path), UTF_8, true);
             bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(key + DictionaryType.getSymbol() + value + "\n");
             bufferedWriter.flush();
@@ -44,7 +49,8 @@ public class FileStorage implements DictionaryStorage {
 
         List<String> results = new ArrayList<String>();
         try {
-            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
+
+            BufferedReader reader =  new BufferedReader(new InputStreamReader(new FileInputStream(getDictionaryFile(path)), UTF_8));
             String line = reader.readLine();
             while (line != null) {
                 results.add(line);
@@ -78,7 +84,7 @@ public class FileStorage implements DictionaryStorage {
                 break;
             }
         }
-        fileClear();
+        fileClear(selectedDictionary.getDictionaryPath());
         for (String readLine : readLines) {
             String[] keyAndValue = readLine.split(DictionaryType.getSymbol());
             write(keyAndValue[0], keyAndValue[1], selectedDictionary.getDictionaryPath());
