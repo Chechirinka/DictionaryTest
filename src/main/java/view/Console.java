@@ -1,63 +1,102 @@
 package view;
 
+import java.util.List;
 import java.util.Scanner;
 
+import DictionaryException.RemoveException;
+import DictionaryException.SearchException;
 import configuration.DictionaryType;
-import service.FileNotFoundException;
+import DictionaryException.FileNotExistsException;
+import model.DictionaryLine;
 import service.DictionaryService;
+
+import static storage.MapStorage.KEY_DOES_NOT_EXIST;
+import static storage.MapStorage.NO_KEY;
+
 
 public class Console {
 
 
     private DictionaryService dictionaryService;
     private DictionaryType selectedDictionary;
+    private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
+    private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";
+    private final static String ENTER_KEY = "Enter key";
+    private final static String ENTER_VALUE = "Enter value";
+    private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует";
 
     public void choice() {
-        System.out.println("Select lang: 1 - English; 2 - Digital;");
+        System.out.println(SELECT_LANGUAGE);
 
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
-        } catch(FileNotFoundException e){
-            System.out.println("Ошибка, такого языка не существует");
+        } catch(FileNotExistsException e){
+            System.out.println(NO_EXIST_LANGUAGE);
         }
 
     }
+
     public Console(DictionaryService dictionaryService) {
+
         this.dictionaryService = dictionaryService;
     }
 
     Scanner in = new Scanner(System.in);
 
     public void actions() {
-        boolean a = true;
-        while (a) {
-            System.out.println("Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit");
+        boolean isMenuActive = true;
+        while (isMenuActive) {
+            System.out.println(SELECT_ACTIONS);
             int inaction = in.nextInt();
             switch (inaction) {
                 case 1:
-                    System.out.println("Enter key");
+                    System.out.println(ENTER_KEY);
                     String key = in.next();
-                    System.out.println("Enter value");
+                    System.out.println(ENTER_VALUE);
                     String value = in.next();
-                    System.out.println(dictionaryService.addService(key, value, selectedDictionary));
+                    System.out.println(addPair(key, value, selectedDictionary));
                     break;
                 case 2:
-                    System.out.println(dictionaryService.readService(selectedDictionary));
+                    System.out.println(readPair(selectedDictionary));
                     break;
                 case 3:
-                    System.out.println("Enter key");
+                    System.out.println(ENTER_KEY);
                     key = in.next();
-                    dictionaryService.removeService(key, selectedDictionary);
+                    try {
+                        removePair(key, selectedDictionary);
+                    } catch (RemoveException e) {
+                        System.out.println(KEY_DOES_NOT_EXIST);
+                    }
                     break;
                 case 4:
-                    System.out.println("Enter key");
+                    System.out.println(ENTER_KEY);
                     key = in.next();
-                    System.out.println(dictionaryService.searchService(key, selectedDictionary));
+                    try {
+                        System.out.println(searchPair(key, selectedDictionary));
+                    } catch (SearchException e) {
+                        System.out.println(NO_KEY);
+                    }
                     break;
                 case 5:
-                    a = false;
+                    isMenuActive = false;
             }
         }
+    }
+
+    private String addPair(String key, String value, DictionaryType selectedDictionary){
+        return dictionaryService.addService(key, value, selectedDictionary);
+    }
+
+    private List<DictionaryLine> readPair(DictionaryType selectedDictionary){
+       return dictionaryService.readService(selectedDictionary);
+    }
+
+    private DictionaryLine searchPair(String key, DictionaryType selectedDictionary) throws SearchException {
+        return dictionaryService.searchService(key, selectedDictionary);
+    }
+
+    private void removePair(String key, DictionaryType selectedDictionary) throws RemoveException{
+        dictionaryService.removeService(key, selectedDictionary);
     }
 }
 

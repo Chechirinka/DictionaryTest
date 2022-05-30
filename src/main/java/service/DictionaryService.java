@@ -1,9 +1,14 @@
 package service;
 
+import DictionaryException.RemoveException;
+import DictionaryException.SearchException;
 import configuration.DictionaryType;
+import model.DictionaryLine;
 import storage.*;
 import validator.Validator;
 import java.util.List;
+
+import static storage.MapStorage.NO_KEY;
 
 public class DictionaryService {
 
@@ -18,21 +23,22 @@ public class DictionaryService {
 
     public String addService(String key, String value, DictionaryType selectedDictionary) {
         if (validator.isValidPair(key, value, selectedDictionary)) {
-            return dictionaryStorage.add(key, value, selectedDictionary);
+            dictionaryStorage.add(key, value, selectedDictionary);
+            return "Success";
         } else {
             return "Error";
         }
     }
 
-    public List<String> readService(DictionaryType selectedDictionary) {
+    public List<DictionaryLine> readService(DictionaryType selectedDictionary) {
         return dictionaryStorage.read(selectedDictionary);
     }
 
-    public void removeService(String key, DictionaryType selectedDictionary) {
+    public void removeService(String key, DictionaryType selectedDictionary) throws RemoveException {
         dictionaryStorage.remove(key, selectedDictionary);
     }
 
-    public String searchService(String key, DictionaryType selectedDictionary) {
+    public DictionaryLine searchService(String key, DictionaryType selectedDictionary) throws SearchException{
         return dictionaryStorage.search(key, selectedDictionary);
     }
-    }
+}

@@ -1,6 +1,10 @@
 package configuration;
 
-import service.FileNotFoundException;
+import DictionaryException.FileNotExistsException;
+
+/**
+ * Перечисление, которое отвечает за хранение типов словарей
+ */
 public enum DictionaryType {
     DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "src/main/resources/DictionaryE.txt", "English"),
     DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "src/main/resources/DictionaryD.txt", "Digital");
@@ -33,12 +37,12 @@ public enum DictionaryType {
         return dictionaryPath;
     }
 
-   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws FileNotFoundException {
+   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws FileNotExistsException {
         for (DictionaryType dictionaryType : DictionaryType.values()) {
             if (dictionaryType.getNumber().equals(number)) {
                 return dictionaryType;
             }
-        }  throw new FileNotFoundException("Ошибка, такого словаря нет");
+        }  throw new FileNotExistsException("Ошибка, такого словаря нет");
     }
 }
 

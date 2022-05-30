@@ -4,6 +4,9 @@ import storage.DictionaryStorage;
 import storage.FileStorage;
 import storage.MapStorage;
 
+/**
+ * Создаёт стораджи
+ */
 public class DictionaryFactory {
 
     public static DictionaryStorage createDictionaryStorage(String arg) {
