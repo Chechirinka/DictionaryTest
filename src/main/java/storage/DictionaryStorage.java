@@ -9,4 +9,5 @@ public interface DictionaryStorage {
     String add(String key, String value, DictionaryType selectedDictionary);
     void remove(String key, DictionaryType selectedDictionary) ;
     String search(String key, DictionaryType selectedDictionary);
+    String getSymbol();
 }

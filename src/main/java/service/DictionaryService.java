@@ -2,22 +2,22 @@ package service;
 
 import configuration.DictionaryType;
 import storage.*;
-import validator.ValidInterface;
+import validator.Validator;
 import java.util.List;
 
 public class DictionaryService {
 
-    private final ValidInterface validInterface;
+    private final Validator validator;
     private final DictionaryStorage dictionaryStorage;
 
-    public DictionaryService(ValidInterface validInterface, DictionaryStorage dictionaryStorage) {
-        this.validInterface=validInterface;
+    public DictionaryService(Validator validator, DictionaryStorage dictionaryStorage) {
+        this.validator = validator;
         this.dictionaryStorage= dictionaryStorage;
     }
 
 
     public String addService(String key, String value, DictionaryType selectedDictionary) {
-        if (validInterface.isValidPair(key, value, selectedDictionary)) {
+        if (validator.isValidPair(key, value, selectedDictionary)) {
             return dictionaryStorage.add(key, value, selectedDictionary);
         } else {
             return "Error";

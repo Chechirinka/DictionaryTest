@@ -4,7 +4,7 @@ import configuration.DictionaryType;
 
 import java.util.regex.Pattern;
 
-public class Validation implements ValidInterface{
+public class RegularExpressionValidator implements Validator {
 
     private boolean isValidKey(String key,  String keyPattern) {
         return Pattern.matches(keyPattern, key);

@@ -3,25 +3,21 @@ package view;
 import java.util.Scanner;
 
 import configuration.DictionaryType;
-import service.DictionaryException;
+import service.FileNotFoundException;
 import service.DictionaryService;
-import storage.DictionaryStorage;
-import validator.ValidInterface;
-import validator.Validation;
 
 public class Console {
 
 
     private DictionaryService dictionaryService;
-    private DictionaryStorage dictionaryStorage;
-    DictionaryType selectedDictonary;
+    private DictionaryType selectedDictionary;
 
     public void choice() {
         System.out.println("Select lang: 1 - English; 2 - Digital;");
 
         try {
-            selectedDictonary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
-        } catch(DictionaryException e){
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
+        } catch(FileNotFoundException e){
             System.out.println("Ошибка, такого языка не существует");
         }
 
@@ -43,20 +39,20 @@ public class Console {
                     String key = in.next();
                     System.out.println("Enter value");
                     String value = in.next();
-                    System.out.println(dictionaryService.addService(key, value, selectedDictonary));
+                    System.out.println(dictionaryService.addService(key, value, selectedDictionary));
                     break;
                 case 2:
-                    System.out.println(dictionaryService.readService(selectedDictonary));
+                    System.out.println(dictionaryService.readService(selectedDictionary));
                     break;
                 case 3:
                     System.out.println("Enter key");
                     key = in.next();
-                    dictionaryService.removeService(key, selectedDictonary);
+                    dictionaryService.removeService(key, selectedDictionary);
                     break;
                 case 4:
                     System.out.println("Enter key");
                     key = in.next();
-                    System.out.println(dictionaryService.searchService(key, selectedDictonary));
+                    System.out.println(dictionaryService.searchService(key, selectedDictionary));
                     break;
                 case 5:
                     a = false;

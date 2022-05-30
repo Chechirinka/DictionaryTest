@@ -27,7 +27,7 @@ public class FileStorage implements DictionaryStorage {
         try {
             FileWriter fileWriter = new FileWriter(path, UTF_8, true);
             bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(key + DictionaryType.getSymbol() + value + "\n");
+            bufferedWriter.write(key + getSymbol() + value + "\n");
             bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,6 +59,11 @@ public class FileStorage implements DictionaryStorage {
     }
 
     @Override
+    public String getSymbol() {
+        return ":";
+    }
+
+    @Override
     public List<String> read(DictionaryType selectedDictionary) {
         return operationRead(selectedDictionary.getDictionaryPath());
     }
@@ -73,14 +78,14 @@ public class FileStorage implements DictionaryStorage {
 
         List<String> readLines = operationRead(selectedDictionary.getDictionaryPath());
         for (int i = 0; i < readLines.size(); i++) {
-            if (key.equals(readLines.get(i).split(DictionaryType.getSymbol())[0])) {
+            if (key.equals(readLines.get(i).split(getSymbol())[0])) {
                 readLines.remove(i);
                 break;
             }
         }
         fileClear();
         for (String readLine : readLines) {
-            String[] keyAndValue = readLine.split(DictionaryType.getSymbol());
+            String[] keyAndValue = readLine.split(getSymbol());
             write(keyAndValue[0], keyAndValue[1], selectedDictionary.getDictionaryPath());
         }
     }
@@ -88,7 +93,7 @@ public class FileStorage implements DictionaryStorage {
     public String search(String key, DictionaryType selectedDictionary) {
         List<String> searchLines = operationRead(selectedDictionary.getDictionaryPath());
         for (int i = 0; i < searchLines.size(); i++) {
-            if (key.equals(searchLines.get(i).split(DictionaryType.getSymbol())[0])) {
+            if (key.equals(searchLines.get(i).split(getSymbol())[0])) {
                 return searchLines.get(i);
             }
         }
