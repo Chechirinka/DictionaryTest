@@ -3,14 +3,12 @@ package dictionary.view;
 import java.util.List;
 import java.util.Scanner;
 
-import dictionary.exeption.RemoveException;
 import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
-import dictionary.exeption.FileNotExistsException;
+import dictionary.exeption.TypeNotFoundException;
 import dictionary.model.DictionaryLine;
 import dictionary.service.DictionaryService;
 
-import static dictionary.storage.MapStorage.KEY_DOES_NOT_EXIST;
 import static dictionary.storage.MapStorage.NO_KEY;
 
 
@@ -30,7 +28,7 @@ public class Console {
 
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
-        } catch(FileNotExistsException e){
+        } catch(TypeNotFoundException e){
             System.out.println(NO_EXIST_LANGUAGE);
         }
 

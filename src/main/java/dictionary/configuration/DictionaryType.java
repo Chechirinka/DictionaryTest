@@ -1,6 +1,6 @@
 package dictionary.configuration;
 
-import dictionary.exeption.FileNotExistsException;
+import dictionary.exeption.TypeNotFoundException;
 
 /**
  * Перечисление, которое отвечает за хранение типов словарей
@@ -37,12 +37,12 @@ public enum DictionaryType {
         return dictionaryPath;
     }
 
-   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws FileNotExistsException {
+   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws TypeNotFoundException {
         for (DictionaryType dictionaryType : DictionaryType.values()) {
             if (dictionaryType.getNumber().equals(number)) {
                 return dictionaryType;
             }
-        }  throw new FileNotExistsException("Ошибка, такого словаря нет");
+        }  throw new TypeNotFoundException("Ошибка, такого словаря нет");
     }
 }
 

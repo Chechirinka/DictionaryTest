@@ -6,26 +6,15 @@ import java.util.regex.Pattern;
 
 /**
  * Класс ответственен за проверку вводимых данных пользователем
+ * на основании регулярного выражения
  */
 
 public class RegularExpressionValidator implements Validator {
 
-    /**
-     * Метод проверяет совпадение введенного ключа с регулярным выражением
-     * @param key
-     * @param keyPattern
-     * @return boolean соответствует ли ключ регулярному выражению
-     */
     private boolean isValidKey(String key,  String keyPattern) {
         return Pattern.matches(keyPattern, key);
     }
 
-    /**
-     * Метод проверяет совпадение введенного значения с регулярным выражением
-     * @param value
-     * @param valuePattern
-     * @return boolean соответствует ли значение регулярному выражению
-     */
     private boolean isValidValue(String value, String valuePattern) {
         return Pattern.matches(valuePattern, value);
     }

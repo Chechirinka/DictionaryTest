@@ -8,7 +8,6 @@ public class DictionaryLine {
     }
     private final String key;
     private final String value;
-    private static final String splitChar = ":";
 
     public String getKey() {
         return key;
@@ -16,14 +15,5 @@ public class DictionaryLine {
 
     public String getValue() {
         return value;
-    }
-
-    public static String getSplitChar() {
-        return splitChar;
-    }
-
-    @Override
-    public String toString(){
-        return key+splitChar+value;
     }
 }
