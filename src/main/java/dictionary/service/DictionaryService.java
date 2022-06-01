@@ -1,6 +1,5 @@
 package dictionary.service;
 
-import dictionary.exeption.RemoveException;
 import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
 import dictionary.model.DictionaryLine;
@@ -19,12 +18,12 @@ public class DictionaryService {
     }
 
 
-    public String addService(String key, String value, DictionaryType selectedDictionary) {
+    public boolean addService(String key, String value, DictionaryType selectedDictionary) {
         if (validator.isValidPair(key, value, selectedDictionary)) {
-            dictionaryStorage.add(key, value, selectedDictionary);
-            return "Success";
+            dictionaryStorage.addAll(key, value, selectedDictionary);
+            return true;
         } else {
-            return "Error";
+            return false;
         }
     }
 
@@ -32,8 +31,8 @@ public class DictionaryService {
         return dictionaryStorage.read(selectedDictionary);
     }
 
-    public void removeService(String key, DictionaryType selectedDictionary) throws RemoveException {
-        dictionaryStorage.remove(key, selectedDictionary);
+    public boolean removeService(String key, DictionaryType selectedDictionary) {
+        return dictionaryStorage.remove(key, selectedDictionary);
     }
 
     public DictionaryLine searchService(String key, DictionaryType selectedDictionary) throws SearchException{

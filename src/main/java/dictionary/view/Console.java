@@ -62,11 +62,7 @@ public class Console {
                 case 3:
                     System.out.println(ENTER_KEY);
                     key = in.next();
-                    try {
-                        removePair(key, selectedDictionary);
-                    } catch (RemoveException e) {
-                        System.out.println(KEY_DOES_NOT_EXIST);
-                    }
+                    System.out.println(removePair(key, selectedDictionary));
                     break;
                 case 4:
                     System.out.println(ENTER_KEY);
@@ -84,7 +80,10 @@ public class Console {
     }
 
     private String addPair(String key, String value, DictionaryType selectedDictionary){
-        return dictionaryService.addService(key, value, selectedDictionary);
+        if (dictionaryService.addService(key, value, selectedDictionary)){
+            return "Success";
+        }
+        return "Error";
     }
 
     private List<DictionaryLine> readPair(DictionaryType selectedDictionary){
@@ -95,8 +94,11 @@ public class Console {
         return dictionaryService.searchService(key, selectedDictionary);
     }
 
-    private void removePair(String key, DictionaryType selectedDictionary) throws RemoveException{
-        dictionaryService.removeService(key, selectedDictionary);
+    private String removePair(String key, DictionaryType selectedDictionary) {
+      if(dictionaryService.removeService(key, selectedDictionary)){
+          return "Удалено";
+      }
+      return "Не удалено";
     }
 }
 

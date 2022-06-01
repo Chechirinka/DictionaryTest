@@ -1,6 +1,5 @@
 package dictionary.storage;
 
-import dictionary.exeption.RemoveException;
 import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
 import dictionary.model.DictionaryLine;
@@ -11,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static dictionary.storage.MapStorage.KEY_DOES_NOT_EXIST;
 import static dictionary.storage.MapStorage.NO_KEY;
 
 /**
@@ -52,11 +50,13 @@ public class FileStorage implements DictionaryStorage {
     private List<DictionaryLine> operationRead(String path) {
 
         List<DictionaryLine> results = new LinkedList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
                 results.add(DictionaryLineCodec.encode(line));
                 line = reader.readLine();
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,8 +82,9 @@ public class FileStorage implements DictionaryStorage {
      * @return mapRead - возвращает список пар <ключ, значение>
      */
     @Override
-    public void add(String key, String value, DictionaryType selectedDictionary) {
+    public boolean addAll(String key, String value, DictionaryType selectedDictionary) {
             write(key, value, selectedDictionary.getDictionaryPath(), true);
+        return true;
     }
     
     /***
@@ -93,7 +94,7 @@ public class FileStorage implements DictionaryStorage {
      * @return mapRead - возвращает список пар <ключ, значение>
      */
     @Override
-    public void remove(String key, DictionaryType selectedDictionary) throws RemoveException {
+    public boolean remove(String key, DictionaryType selectedDictionary) {
         boolean isRemoved = false;
         List<DictionaryLine> readLines = operationRead(selectedDictionary.getDictionaryPath());
         for (DictionaryLine dictionaryLine : readLines) {
@@ -103,12 +104,13 @@ public class FileStorage implements DictionaryStorage {
             }
         }
         if (!isRemoved){
-            throw new RemoveException(KEY_DOES_NOT_EXIST);
+            return false;
         }
         fileClear(selectedDictionary.getDictionaryPath(), false);
         for (DictionaryLine readLine : readLines) {
                 write(readLine.getKey(), readLine.getValue(), selectedDictionary.getDictionaryPath(), true);
         }
+        return true;
         }
 
     /**

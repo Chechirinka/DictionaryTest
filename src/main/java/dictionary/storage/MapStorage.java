@@ -1,8 +1,9 @@
 package dictionary.storage;
 
-import dictionary.exeption.RemoveException;
 import dictionary.configuration.DictionaryType;
+import dictionary.exeption.SearchException;
 import dictionary.model.DictionaryLine;
+import dictionary.service.DictionaryLineCodec;
 
 import java.util.*;
 
@@ -13,61 +14,67 @@ public class MapStorage implements DictionaryStorage {
 
     public static final String NO_KEY = "No key found!";
     public static final String KEY_DOES_NOT_EXIST = "This key does not exist!";
-
+    public static Map<String, DictionaryLine> map = new HashMap<>();
     public List<DictionaryLine> dictionaryLines = new LinkedList<>();
 
     /**
      * Метод, который отвечает за чтение данных из мапы
+     *
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
     @Override
     public List<DictionaryLine> read(DictionaryType selectedDictionary) {
-
-        return dictionaryLines;
+        return new ArrayList<>(map.values());
     }
 
     /**
      * Метод, который отвечает за добавление данных в мапу
-     * @param key - ключ
-     * @param value - значение
+     *
+     * @param key                - ключ
+     * @param value              - значение
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
     @Override
-    public void add(String key, String value, DictionaryType selectedDictionary) {
-       dictionaryLines.add(new DictionaryLine(key, value) );
+    public boolean addAll(String key, String value, DictionaryType selectedDictionary) {
+        map.put(key, new DictionaryLine(key, value));
+        return true;
     }
 
     /**
      * Метод, который отвечает за удаление данных из мапы
-     * @param key - ключ
+     *
+     * @param key                - ключ
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
     @Override
-    public void remove(String key, DictionaryType selectedDictionary) throws RemoveException {
-        for (DictionaryLine dictionaryLine : dictionaryLines) {
-            if (dictionaryLine.getKey().equals(key)) {
-                dictionaryLines.remove(dictionaryLine);
-                return;
-            }
-        }throw new RemoveException(KEY_DOES_NOT_EXIST);
+    public boolean remove(String key, DictionaryType selectedDictionary) {
+
+        if (map.containsKey(key)) {
+            map.remove(key);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Метод, который отвечает за поиск данных в мапе
-     * @param key - ключ
+     *
+     * @param key                - ключ
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
     @Override
-    public DictionaryLine search(String key, DictionaryType selectedDictionary) throws RuntimeException{
-        for (DictionaryLine dictionaryLine : dictionaryLines) {
-            if (dictionaryLine.getKey().equals(key)) {
-                return dictionaryLine;
-            }
-        }throw new RuntimeException(NO_KEY);
+    public DictionaryLine search(String key, DictionaryType selectedDictionary) throws SearchException {
+
+        DictionaryLine search = map.get(key);
+        if (search != null) {
+            return search;
+        } else {
+            throw new SearchException(NO_KEY);
+        }
     }
 }
 
