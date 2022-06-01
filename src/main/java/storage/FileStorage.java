@@ -19,11 +19,10 @@ import static storage.MapStorage.NO_KEY;
  */
 public class FileStorage implements DictionaryStorage {
 
-    public String path;
 
-    public void fileClear() {
+    public void fileClear(String path, boolean isClear) {
         try {
-            new FileWriter(path, false).close();
+            new FileWriter(path, isClear).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,10 +34,9 @@ public class FileStorage implements DictionaryStorage {
      * @param value - значение
      * @param path - принимает путь
      */
-    public void write(String key, String value, String path) throws IOException {
+    private void write(String key, String value, String path, boolean isWrite)  {
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(path, UTF_8, true));
-        try (writer) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, UTF_8, isWrite))) {
             DictionaryLine dictionaryLine = new DictionaryLine(key, value);
             writer.write(dictionaryLine + "\n");
         } catch (IOException e) {
@@ -51,11 +49,10 @@ public class FileStorage implements DictionaryStorage {
      * @param path - принимает путь
      * @return - возвращает список <ключ,значение>
      */
-    public List<DictionaryLine> operationRead(String path) {
+    private List<DictionaryLine> operationRead(String path) {
 
         List<DictionaryLine> results = new LinkedList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))){
             String line = reader.readLine();
             while (line != null) {
                 results.add(DictionaryLineCodec.encode(line));
@@ -86,11 +83,7 @@ public class FileStorage implements DictionaryStorage {
      */
     @Override
     public void add(String key, String value, DictionaryType selectedDictionary) {
-        try {
-            write(key, value, selectedDictionary.getDictionaryPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            write(key, value, selectedDictionary.getDictionaryPath(), true);
     }
     
     /***
@@ -106,19 +99,15 @@ public class FileStorage implements DictionaryStorage {
         for (DictionaryLine dictionaryLine : readLines) {
             if (dictionaryLine.getKey().equals(key)) {
                 isRemoved = readLines.remove(dictionaryLine);
-                continue;
+                break;
             }
         }
         if (!isRemoved){
             throw new RemoveException(KEY_DOES_NOT_EXIST);
         }
-        fileClear();
+        fileClear(selectedDictionary.getDictionaryPath(), false);
         for (DictionaryLine readLine : readLines) {
-            try {
-                write(readLine.getKey(), readLine.getValue(), selectedDictionary.getDictionaryPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                write(readLine.getKey(), readLine.getValue(), selectedDictionary.getDictionaryPath(), true);
         }
         }
 

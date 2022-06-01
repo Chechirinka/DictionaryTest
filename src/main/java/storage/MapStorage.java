@@ -14,7 +14,7 @@ public class MapStorage implements DictionaryStorage {
     public static final String NO_KEY = "No key found!";
     public static final String KEY_DOES_NOT_EXIST = "This key does not exist!";
 
-    public static List<DictionaryLine> dictionaryLines = new LinkedList<>();
+    public List<DictionaryLine> dictionaryLines = new LinkedList<>();
 
     /**
      * Метод, который отвечает за чтение данных из мапы
