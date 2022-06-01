@@ -1,6 +1,6 @@
 package dictionary.configuration;
 
-import dictionary.DictionaryException.FileNotExistsException;
+import dictionary.exeption.FileNotExistsException;
 
 /**
  * Перечисление, которое отвечает за хранение типов словарей

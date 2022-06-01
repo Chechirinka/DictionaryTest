@@ -1,6 +1,6 @@
 package dictionary.storage;
 
-import dictionary.DictionaryException.RemoveException;
+import dictionary.exeption.RemoveException;
 import dictionary.configuration.DictionaryType;
 import dictionary.model.DictionaryLine;
 

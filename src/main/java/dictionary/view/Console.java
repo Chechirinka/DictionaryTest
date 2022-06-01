@@ -3,10 +3,10 @@ package dictionary.view;
 import java.util.List;
 import java.util.Scanner;
 
-import dictionary.DictionaryException.RemoveException;
-import dictionary.DictionaryException.SearchException;
+import dictionary.exeption.RemoveException;
+import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
-import dictionary.DictionaryException.FileNotExistsException;
+import dictionary.exeption.FileNotExistsException;
 import dictionary.model.DictionaryLine;
 import dictionary.service.DictionaryService;
 
