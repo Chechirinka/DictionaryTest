@@ -1,4 +1,4 @@
-package DictionaryException;
+package dictionary.DictionaryException;
 
 public class FileNotExistsException extends Exception{
     public FileNotExistsException(String message){

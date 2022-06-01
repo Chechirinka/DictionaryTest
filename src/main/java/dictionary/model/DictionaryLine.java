@@ -1,5 +1,4 @@
-package model;
-
+package dictionary.model;
 
 public class DictionaryLine {
 

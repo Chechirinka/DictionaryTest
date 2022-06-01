@@ -1,8 +1,8 @@
-package configuration;
+package dictionary.configuration;
 
-import storage.DictionaryStorage;
-import storage.FileStorage;
-import storage.MapStorage;
+import dictionary.storage.DictionaryStorage;
+import dictionary.storage.FileStorage;
+import dictionary.storage.MapStorage;
 
 /**
  * Создаёт стораджи

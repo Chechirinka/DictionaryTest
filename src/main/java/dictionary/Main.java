@@ -1,9 +1,10 @@
+package dictionary;
 
-import configuration.DictionaryFactory;
-import service.DictionaryService;
-import validator.Validator;
-import validator.RegularExpressionValidator;
-import view.Console;
+import dictionary.configuration.DictionaryFactory;
+import dictionary.service.DictionaryService;
+import dictionary.validator.Validator;
+import dictionary.validator.RegularExpressionValidator;
+import dictionary.view.Console;
 
 public class Main {
     public static void main(String[] args) {

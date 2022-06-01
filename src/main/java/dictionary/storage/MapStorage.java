@@ -1,8 +1,8 @@
-package storage;
+package dictionary.storage;
 
-import DictionaryException.RemoveException;
-import configuration.DictionaryType;
-import model.DictionaryLine;
+import dictionary.DictionaryException.RemoveException;
+import dictionary.configuration.DictionaryType;
+import dictionary.model.DictionaryLine;
 
 import java.util.*;
 

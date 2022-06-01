@@ -1,18 +1,18 @@
-package storage;
+package dictionary.storage;
 
-import DictionaryException.RemoveException;
-import DictionaryException.SearchException;
-import configuration.DictionaryType;
-import model.DictionaryLine;
-import service.DictionaryLineCodec;
+import dictionary.DictionaryException.RemoveException;
+import dictionary.DictionaryException.SearchException;
+import dictionary.configuration.DictionaryType;
+import dictionary.model.DictionaryLine;
+import dictionary.service.DictionaryLineCodec;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static storage.MapStorage.KEY_DOES_NOT_EXIST;
-import static storage.MapStorage.NO_KEY;
+import static dictionary.storage.MapStorage.KEY_DOES_NOT_EXIST;
+import static dictionary.storage.MapStorage.NO_KEY;
 
 /**
  * Класс отвечающий за хранение словаря в файловой системе

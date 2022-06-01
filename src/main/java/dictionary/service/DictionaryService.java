@@ -1,14 +1,14 @@
-package service;
+package dictionary.service;
 
-import DictionaryException.RemoveException;
-import DictionaryException.SearchException;
-import configuration.DictionaryType;
-import model.DictionaryLine;
-import storage.*;
-import validator.Validator;
+import dictionary.DictionaryException.RemoveException;
+import dictionary.DictionaryException.SearchException;
+import dictionary.configuration.DictionaryType;
+import dictionary.model.DictionaryLine;
+import dictionary.storage.*;
+import dictionary.validator.Validator;
 import java.util.List;
 
-import static storage.MapStorage.NO_KEY;
+import static dictionary.storage.MapStorage.NO_KEY;
 
 public class DictionaryService {
 

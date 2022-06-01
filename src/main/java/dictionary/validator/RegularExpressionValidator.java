@@ -1,6 +1,6 @@
-package validator;
+package dictionary.validator;
 
-import configuration.DictionaryType;
+import dictionary.configuration.DictionaryType;
 
 import java.util.regex.Pattern;
 

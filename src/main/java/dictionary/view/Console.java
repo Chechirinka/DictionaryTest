@@ -1,17 +1,17 @@
-package view;
+package dictionary.view;
 
 import java.util.List;
 import java.util.Scanner;
 
-import DictionaryException.RemoveException;
-import DictionaryException.SearchException;
-import configuration.DictionaryType;
-import DictionaryException.FileNotExistsException;
-import model.DictionaryLine;
-import service.DictionaryService;
+import dictionary.DictionaryException.RemoveException;
+import dictionary.DictionaryException.SearchException;
+import dictionary.configuration.DictionaryType;
+import dictionary.DictionaryException.FileNotExistsException;
+import dictionary.model.DictionaryLine;
+import dictionary.service.DictionaryService;
 
-import static storage.MapStorage.KEY_DOES_NOT_EXIST;
-import static storage.MapStorage.NO_KEY;
+import static dictionary.storage.MapStorage.KEY_DOES_NOT_EXIST;
+import static dictionary.storage.MapStorage.NO_KEY;
 
 
 public class Console {

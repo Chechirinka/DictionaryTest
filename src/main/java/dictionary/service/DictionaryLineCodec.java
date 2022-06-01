@@ -1,6 +1,6 @@
-package service;
+package dictionary.service;
 
-import model.DictionaryLine;
+import dictionary.model.DictionaryLine;
 
 
 public class DictionaryLineCodec {

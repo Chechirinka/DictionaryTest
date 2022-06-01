@@ -1,6 +1,6 @@
-package validator;
+package dictionary.validator;
 
-import configuration.DictionaryType;
+import dictionary.configuration.DictionaryType;
 
 public interface Validator {
     boolean isValidPair(String key, String value, DictionaryType dictionaryType);
