@@ -16,4 +16,5 @@ public class DictionaryLine {
     public String getValue() {
         return value;
     }
+
 }

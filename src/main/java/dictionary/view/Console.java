@@ -7,6 +7,7 @@ import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
 import dictionary.exeption.TypeNotFoundException;
 import dictionary.model.DictionaryLine;
+import dictionary.service.DictionaryLineCodec;
 import dictionary.service.DictionaryService;
 
 import static dictionary.storage.MapStorage.NO_KEY;
@@ -22,6 +23,7 @@ public class Console {
     private final static String ENTER_KEY = "Enter key";
     private final static String ENTER_VALUE = "Enter value";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует";
+    private final DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
 
     public void choice() {
         System.out.println(SELECT_LANGUAGE);
@@ -84,7 +86,7 @@ public class Console {
         return "Error";
     }
 
-    private List<DictionaryLine> readPair(DictionaryType selectedDictionary){
+    private List<String> readPair(DictionaryType selectedDictionary){
        return dictionaryService.readService(selectedDictionary);
     }
 

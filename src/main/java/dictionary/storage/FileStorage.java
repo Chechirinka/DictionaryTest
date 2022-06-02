@@ -17,6 +17,7 @@ import static dictionary.storage.MapStorage.NO_KEY;
  */
 public class FileStorage implements DictionaryStorage {
 
+    DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
 
     public void fileClear(String path, boolean isClear) {
         try {
@@ -50,13 +51,11 @@ public class FileStorage implements DictionaryStorage {
     private List<DictionaryLine> operationRead(String path) {
 
         List<DictionaryLine> results = new LinkedList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))){
             String line = reader.readLine();
             while (line != null) {
-                results.add(DictionaryLineCodec.encode(line));
+                results.add(dictionaryLineCodec.encode(line));
                 line = reader.readLine();
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +85,7 @@ public class FileStorage implements DictionaryStorage {
             write(key, value, selectedDictionary.getDictionaryPath(), true);
         return true;
     }
-    
+
     /***
      * Метод, который отвечает за удаление данных из файла
      * @param key - ключ
@@ -119,6 +118,7 @@ public class FileStorage implements DictionaryStorage {
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <ключ, значение>
      */
+
     @Override
     public DictionaryLine search(String key, DictionaryType selectedDictionary) throws SearchException {
         List<DictionaryLine> searchLines = operationRead(selectedDictionary.getDictionaryPath());
