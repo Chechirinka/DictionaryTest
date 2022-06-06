@@ -1,6 +1,5 @@
 package dictionary.storage;
 
-import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
 import dictionary.model.DictionaryLine;
 
@@ -12,8 +11,11 @@ import java.util.List;
 public interface DictionaryStorage {
 
     List<DictionaryLine> read(DictionaryType selectedDictionary);
+
     boolean addAll(String key, String value, DictionaryType selectedDictionary);
+
     boolean remove(String key, DictionaryType selectedDictionary);
-    DictionaryLine search(String key, DictionaryType selectedDictionary) throws SearchException;
+
+    DictionaryLine search(String key, DictionaryType selectedDictionary);
 
 }

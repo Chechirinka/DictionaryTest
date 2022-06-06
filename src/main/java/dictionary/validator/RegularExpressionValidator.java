@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class RegularExpressionValidator implements Validator {
 
-    private boolean isValidKey(String key,  String keyPattern) {
+    private boolean isValidKey(String key, String keyPattern) {
         return Pattern.matches(keyPattern, key);
     }
 
@@ -21,6 +21,7 @@ public class RegularExpressionValidator implements Validator {
 
     /**
      * Метод проверяет совпадени пары <ключ, значение> выбранному языку
+     *
      * @param key
      * @param value
      * @param dictionaryType

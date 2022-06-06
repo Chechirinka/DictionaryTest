@@ -1,10 +1,10 @@
 package dictionary.service;
 
-import dictionary.exeption.SearchException;
 import dictionary.configuration.DictionaryType;
 import dictionary.model.DictionaryLine;
 import dictionary.storage.*;
 import dictionary.validator.Validator;
+
 import java.util.List;
 
 /**
@@ -12,23 +12,23 @@ import java.util.List;
  */
 public class DictionaryService {
 
-    DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
     private final Validator validator;
     private final DictionaryStorage dictionaryStorage;
-
+    DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
 
 
     public DictionaryService(Validator validator, DictionaryStorage dictionaryStorage) {
         this.validator = validator;
-        this.dictionaryStorage= dictionaryStorage;
+        this.dictionaryStorage = dictionaryStorage;
     }
 
     /**
      * Метод отвечает за валидацию введенный данных, и при успехе обращается к методу добавления относительно выбранного способа хранения
      * и выбранного языка
      * и возвращает true, при ошибке валидации возвращает false
-     * @param key ключ, введенный пользователем
-     * @param value, значение введенное пользователем
+     *
+     * @param key                ключ, введенный пользователем
+     * @param value,             значение введенное пользователем
      * @param selectedDictionary выбранный язык словаря
      * @return логическое значение
      */
@@ -43,6 +43,7 @@ public class DictionaryService {
 
     /**
      * Метод отвечает за обращение к методу чтения данных относительно способа хранения и выбранного языка
+     *
      * @param selectedDictionary выбранный язык словаря
      * @return строки из хранилища
      */
@@ -52,7 +53,8 @@ public class DictionaryService {
 
     /**
      * Метод отвечает за оборащение к методу удаление данных относительно способа хранения и выбранного языка
-     * @param key ключ, введенный пользователем
+     *
+     * @param key                ключ, введенный пользователем
      * @param selectedDictionary выбранный язык словаря
      * @return логическое значение
      */
@@ -63,12 +65,12 @@ public class DictionaryService {
 
     /**
      * Метод отвечает за обращение к методу поиска значения по ключу и вывод строки относительно способа хранения выбранного языка
-     * @param key ключ, введенный пользователем
+     *
+     * @param key                ключ, введенный пользователем
      * @param selectedDictionary выбранный язык словаря
      * @return объект типа DictionaryLine
-     * @throws SearchException ошибка поиска
      */
-    public DictionaryLine searchService(String key, DictionaryType selectedDictionary) throws SearchException{
-        return dictionaryStorage.search(key, selectedDictionary);
+    public String searchService(String key, DictionaryType selectedDictionary) {
+        return dictionaryLineCodec.decode(dictionaryStorage.search(key, selectedDictionary));
     }
 }

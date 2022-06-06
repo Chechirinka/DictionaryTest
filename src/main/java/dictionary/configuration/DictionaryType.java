@@ -21,6 +21,15 @@ public enum DictionaryType {
         this.dictionaryPath = dictionaryPath;
     }
 
+    public static DictionaryType getDictionaryTypeByNumber(Integer number) throws TypeNotFoundException {
+        for (DictionaryType dictionaryType : DictionaryType.values()) {
+            if (dictionaryType.getNumber().equals(number)) {
+                return dictionaryType;
+            }
+        }
+        throw new TypeNotFoundException("Ошибка, такого словаря нет");
+    }
+
     public Integer getNumber() {
         return number;
     }
@@ -35,14 +44,6 @@ public enum DictionaryType {
 
     public String getDictionaryPath() {
         return dictionaryPath;
-    }
-
-   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws TypeNotFoundException {
-        for (DictionaryType dictionaryType : DictionaryType.values()) {
-            if (dictionaryType.getNumber().equals(number)) {
-                return dictionaryType;
-            }
-        }  throw new TypeNotFoundException("Ошибка, такого словаря нет");
     }
 }
 

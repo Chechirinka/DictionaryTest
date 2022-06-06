@@ -10,10 +10,11 @@ import dictionary.storage.MapStorage;
 public class DictionaryFactory {
 
     private final static String MAP = "map";
+
     public static DictionaryStorage createDictionaryStorage(String arg) {
-        if(arg.equals(MAP)){
+        if (arg.equals(MAP)) {
             return new MapStorage();
-        }else{
+        } else {
             return new FileStorage();
         }
     }

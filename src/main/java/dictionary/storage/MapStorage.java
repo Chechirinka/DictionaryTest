@@ -1,9 +1,7 @@
 package dictionary.storage;
 
 import dictionary.configuration.DictionaryType;
-import dictionary.exeption.SearchException;
 import dictionary.model.DictionaryLine;
-import dictionary.service.DictionaryLineCodec;
 
 import java.util.*;
 
@@ -13,7 +11,6 @@ import java.util.*;
 public class MapStorage implements DictionaryStorage {
 
     public static final String NO_KEY = "No key found!";
-    public static final String KEY_DOES_NOT_EXIST = "This key does not exist!";
     public static Map<String, DictionaryLine> map = new HashMap<>();
 
     /**
@@ -24,6 +21,7 @@ public class MapStorage implements DictionaryStorage {
      */
     @Override
     public List<DictionaryLine> read(DictionaryType selectedDictionary) {
+
         return new ArrayList<>(map.values());
     }
 
@@ -66,13 +64,13 @@ public class MapStorage implements DictionaryStorage {
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
     @Override
-    public DictionaryLine search(String key, DictionaryType selectedDictionary) throws SearchException {
+    public DictionaryLine search(String key, DictionaryType selectedDictionary){
 
         DictionaryLine search = map.get(key);
         if (search != null) {
             return search;
         } else {
-            throw new SearchException(NO_KEY);
+            return null;
         }
     }
 }
