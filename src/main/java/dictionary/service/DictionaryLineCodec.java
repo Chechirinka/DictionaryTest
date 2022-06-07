@@ -2,9 +2,6 @@ package dictionary.service;
 
 import dictionary.model.DictionaryLine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Класс отвечает за работу над строкой с помощью разделителя
  */
@@ -28,34 +25,11 @@ public class DictionaryLineCodec {
     }
 
     /**
-     * Метод отвечает за кодирование Листа строк в Лист объектов
-     *
-     * @param lines список строк
-     * @return список строк объектов
+     * Метод отвечает за соединение ключа и значения через заданный разделитель
+     * @param dictionaryLine объект строк
+     * @return строку
      */
-    public List<DictionaryLine> encode(List<String> lines) {
-        List<DictionaryLine> dictionaryLines = new ArrayList<>();
-        for (String line : lines) {
-            dictionaryLines.add(encode(line));
-        }
-        return dictionaryLines;
-    }
-
     public String decode(DictionaryLine dictionaryLine) {
         return dictionaryLine.getKey() + splitChar + dictionaryLine.getValue();
-    }
-
-    /**
-     * Метод отвечает за декодирования Лист обьектов в Лист строк
-     *
-     * @param dictionaryLines список объектов строк
-     * @return список строк
-     */
-    public List<String> decode(List<DictionaryLine> dictionaryLines) {
-        List<String> lines = new ArrayList<>();
-        for (DictionaryLine dictionaryLine : dictionaryLines) {
-            lines.add(decode(dictionaryLine));
-        }
-        return lines;
     }
 }

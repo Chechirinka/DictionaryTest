@@ -11,7 +11,7 @@ import java.util.*;
 public class MapStorage implements DictionaryStorage {
 
     public static final String NO_KEY = "No key found!";
-    public static Map<String, DictionaryLine> map = new HashMap<>();
+    public Map<String, DictionaryLine> map = new HashMap<>();
 
     /**
      * Метод, который отвечает за чтение данных из мапы
@@ -34,7 +34,7 @@ public class MapStorage implements DictionaryStorage {
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
     @Override
-    public boolean addAll(String key, String value, DictionaryType selectedDictionary) {
+    public boolean addTo(String key, String value, DictionaryType selectedDictionary) {
         map.put(key, new DictionaryLine(key, value));
         return true;
     }
@@ -49,8 +49,7 @@ public class MapStorage implements DictionaryStorage {
     @Override
     public boolean remove(String key, DictionaryType selectedDictionary) {
 
-        if (map.containsKey(key)) {
-            map.remove(key);
+        if (map.remove(key)!=null) {
             return true;
         }
         return false;
@@ -62,16 +61,11 @@ public class MapStorage implements DictionaryStorage {
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
-    @Override
-    public DictionaryLine search(String key, DictionaryType selectedDictionary){
+     @Override
+     public DictionaryLine search(String key, DictionaryType selectedDictionary) {
 
-        DictionaryLine search = map.get(key);
-        if (search != null) {
-            return search;
-        } else {
-            return null;
-        }
-    }
+         return map.get(key);
+     }
 }
 
 

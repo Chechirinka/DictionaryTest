@@ -17,7 +17,7 @@ public class FileStorage implements DictionaryStorage {
 
     DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
 
-    public void fileClear(String path, boolean isClear) {
+    private void fileClear(String path, boolean isClear) {
         try {
             new FileWriter(path, isClear).close();
         } catch (IOException e) {
@@ -26,7 +26,7 @@ public class FileStorage implements DictionaryStorage {
     }
 
     /**
-     * Метод, который отвечает за доступ к файлу
+     * Метод, который отвечает за запись в файл
      *
      * @param key   - ключ
      * @param value - значение
@@ -43,7 +43,7 @@ public class FileStorage implements DictionaryStorage {
     }
 
     /**
-     * Метод, который отвечает за доступ к файлу
+     * Метод, который отвечает за доступ к чтению из файла
      *
      * @param path - принимает путь
      * @return - возвращает список <ключ,значение>
@@ -79,10 +79,10 @@ public class FileStorage implements DictionaryStorage {
      * @param key                - ключ
      * @param value              - значение
      * @param selectedDictionary - принимает вид языка с которым работает
-     * @return mapRead - возвращает список пар <ключ, значение>
+     * @return логическое значение
      */
     @Override
-    public boolean addAll(String key, String value, DictionaryType selectedDictionary) {
+    public boolean addTo(String key, String value, DictionaryType selectedDictionary) {
         write(key, value, selectedDictionary.getDictionaryPath(), true);
         return true;
     }
@@ -91,7 +91,7 @@ public class FileStorage implements DictionaryStorage {
      * Метод, который отвечает за удаление данных из файла
      * @param key - ключ
      * @param selectedDictionary - принимает вид языка с которым работает
-     * @return mapRead - возвращает список пар <ключ, значение>
+     * @return логическое значение
      */
     @Override
     public boolean remove(String key, DictionaryType selectedDictionary) {
@@ -118,7 +118,8 @@ public class FileStorage implements DictionaryStorage {
      *
      * @param key                - ключ
      * @param selectedDictionary - принимает вид языка с которым работает
-     * @return mapRead - возвращает список пар <ключ, значение>
+     * @return mapRead - возвращает список пар <ключ, значение> и если ключ не найден
+     * возвращается null
      */
 
     @Override

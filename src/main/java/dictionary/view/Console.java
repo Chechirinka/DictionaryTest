@@ -18,17 +18,17 @@ public class Console {
     private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";
     private final static String ENTER_KEY = "Enter key";
     private final static String ENTER_VALUE = "Enter value";
-    private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует";
-
+    private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
-
     private final static String ERROR = "Error";
-
     private final static String NO_EXIST_KEY = "Ключ не найден";
-
     private final static String DELETE = "Удалено";
-
     private final static String NO_DELETE = "Не удалено";
+    private final static int ACTION_ADD = 1;
+    private final static int ACTION_READ = 2;
+    private final static int ACTION_REMOVE = 3;
+    private final static int ACTION_SEARCH = 4;
+    private final static int EXIT = 5;
 
     Scanner in = new Scanner(System.in);
     private DictionaryService dictionaryService;
@@ -46,8 +46,8 @@ public class Console {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
+            in.nextInt();
         }
-
     }
 
     public void actions() {
@@ -56,27 +56,27 @@ public class Console {
             System.out.println(SELECT_ACTIONS);
             int inaction = in.nextInt();
             switch (inaction) {
-                case 1:
+                case ACTION_ADD:
                     System.out.println(ENTER_KEY);
                     String key = in.next();
                     System.out.println(ENTER_VALUE);
                     String value = in.next();
                     System.out.println(addPair(key, value, selectedDictionary));
                     break;
-                case 2:
+                case ACTION_READ:
                     System.out.println(readPair(selectedDictionary));
                     break;
-                case 3:
+                case ACTION_REMOVE:
                     System.out.println(ENTER_KEY);
                     key = in.next();
                     System.out.println(removePair(key, selectedDictionary));
                     break;
-                case 4:
+                case ACTION_SEARCH:
                     System.out.println(ENTER_KEY);
                     key = in.next();
-                        System.out.println(searchPair(key, selectedDictionary));
+                    System.out.println(searchPair(key, selectedDictionary));
                     break;
-                case 5:
+                case EXIT:
                     isMenuActive = false;
             }
         }

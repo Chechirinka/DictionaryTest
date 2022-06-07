@@ -3,6 +3,7 @@ package dictionary.service;
 import dictionary.configuration.DictionaryType;
 import dictionary.storage.*;
 import dictionary.validator.Validator;
+import dictionary.view.Formation;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ public class DictionaryService {
 
     private final Validator validator;
     private final DictionaryStorage dictionaryStorage;
-    DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
 
+    Formation formation = new Formation();
 
     public DictionaryService(Validator validator, DictionaryStorage dictionaryStorage) {
         this.validator = validator;
@@ -33,7 +34,7 @@ public class DictionaryService {
      */
     public boolean addService(String key, String value, DictionaryType selectedDictionary) {
         if (validator.isValidPair(key, value, selectedDictionary)) {
-            dictionaryStorage.addAll(key, value, selectedDictionary);
+            dictionaryStorage.addTo(key, value, selectedDictionary);
             return true;
         } else {
             return false;
@@ -47,7 +48,7 @@ public class DictionaryService {
      * @return строки из хранилища
      */
     public List<String> readService(DictionaryType selectedDictionary) {
-        return dictionaryLineCodec.decode(dictionaryStorage.read(selectedDictionary));
+        return formation.castToString(dictionaryStorage.read(selectedDictionary));
     }
 
     /**
@@ -70,6 +71,6 @@ public class DictionaryService {
      * @return объект типа DictionaryLine
      */
     public String searchService(String key, DictionaryType selectedDictionary) {
-        return dictionaryLineCodec.decode(dictionaryStorage.search(key, selectedDictionary));
+        return formation.castToString(dictionaryStorage.search(key, selectedDictionary));
     }
 }

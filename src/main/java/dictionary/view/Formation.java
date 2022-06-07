@@ -1,15 +1,37 @@
 package dictionary.view;
 
-import java.util.Formatter;
+import dictionary.model.DictionaryLine;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Класс отвечает за форматирование данных для их представления
+ */
 public class Formation {
 
-    private Formatter formatter;
+    private static final String splitChar = "@@@@@@@@@@";
 
-    private void formatTo(String userInput, String form) {
-        formatter = new Formatter();
-        formatter.format(form, userInput);
-        System.out.println(formatter);
-        formatter.close();
+    /**
+     * Метод отвечает за соединение ключа и значения через заданный разделитель
+     * @param dictionaryLine объект строк
+     * @return строку
+     */
+    public String castToString(DictionaryLine dictionaryLine) {
+        return dictionaryLine.getKey() + splitChar + dictionaryLine.getValue();
+    }
+
+    /**
+     * Метод отвечает за декодирования Лист обьектов в Лист строк
+     *
+     * @param dictionaryLines список объектов строк
+     * @return список строк
+     */
+    public List<String> castToString(List<DictionaryLine> dictionaryLines) {
+        List<String> lines = new ArrayList<>();
+        for (DictionaryLine dictionaryLine : dictionaryLines) {
+            lines.add(castToString(dictionaryLine));
+        }
+        return lines;
     }
 }

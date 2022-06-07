@@ -12,7 +12,7 @@ public interface DictionaryStorage {
 
     List<DictionaryLine> read(DictionaryType selectedDictionary);
 
-    boolean addAll(String key, String value, DictionaryType selectedDictionary);
+    boolean addTo(String key, String value, DictionaryType selectedDictionary);
 
     boolean remove(String key, DictionaryType selectedDictionary);
 

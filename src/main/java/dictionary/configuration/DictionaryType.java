@@ -9,6 +9,7 @@ public enum DictionaryType {
     DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "src/main/resources/DictionaryE.txt", "English"),
     DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "src/main/resources/DictionaryD.txt", "Digital");
 
+    private static final String LANGUAGE_NOT_EXIST = "Ошибка, такого словаря нет";
     private final Integer number;
     private final String patternKey;
     private final String patternValue;
@@ -27,7 +28,7 @@ public enum DictionaryType {
                 return dictionaryType;
             }
         }
-        throw new TypeNotFoundException("Ошибка, такого словаря нет");
+        throw new TypeNotFoundException(LANGUAGE_NOT_EXIST);
     }
 
     public Integer getNumber() {
