@@ -55,8 +55,7 @@ public class MapStorage implements DictionaryStorage {
         }
         return false;
     }
-
-    /**
+     /**
      * Метод, который отвечает за поиск данных в мапе
      *
      * @param key                - ключ

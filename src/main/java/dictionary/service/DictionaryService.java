@@ -1,7 +1,6 @@
 package dictionary.service;
 
 import dictionary.configuration.DictionaryType;
-import dictionary.model.DictionaryLine;
 import dictionary.storage.*;
 import dictionary.validator.Validator;
 

@@ -19,6 +19,17 @@ public class Console {
     private final static String ENTER_KEY = "Enter key";
     private final static String ENTER_VALUE = "Enter value";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует";
+
+    private final static String SUCCESS = "Success";
+
+    private final static String ERROR = "Error";
+
+    private final static String NO_EXIST_KEY = "Ключ не найден";
+
+    private final static String DELETE = "Удалено";
+
+    private final static String NO_DELETE = "Не удалено";
+
     Scanner in = new Scanner(System.in);
     private DictionaryService dictionaryService;
     private DictionaryType selectedDictionary;
@@ -73,9 +84,9 @@ public class Console {
 
     private String addPair(String key, String value, DictionaryType selectedDictionary) {
         if (dictionaryService.addService(key, value, selectedDictionary)) {
-            return "Success";
+            return SUCCESS;
         }
-        return "Error";
+        return ERROR;
     }
 
     private List<String> readPair(DictionaryType selectedDictionary) {
@@ -86,14 +97,14 @@ public class Console {
         if (dictionaryService.searchService(key, selectedDictionary) != null){
             return dictionaryService.searchService(key, selectedDictionary);
         }
-        return "Не найдено";
+        return NO_EXIST_KEY;
     }
 
     private String removePair(String key, DictionaryType selectedDictionary) {
         if (dictionaryService.removeService(key, selectedDictionary)) {
-            return "Удалено";
+            return DELETE;
         }
-        return "Не удалено";
+        return NO_DELETE;
     }
 }
 
