@@ -15,7 +15,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class FileStorage implements DictionaryStorage {
 
-    DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
+    private DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
 
     private void fileClear(String path, boolean isClear) {
         try {
@@ -32,13 +32,11 @@ public class FileStorage implements DictionaryStorage {
      * @param value - значение
      * @param path  - принимает путь
      */
-    private void write(String key, String value, String path, boolean isWrite) {
+    private void write(String key, String value, String path, boolean isWrite) throws IOException {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, UTF_8, isWrite))) {
             DictionaryLine dictionaryLine = new DictionaryLine(key, value);
             writer.write(dictionaryLineCodec.decode(dictionaryLine) + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -83,7 +81,12 @@ public class FileStorage implements DictionaryStorage {
      */
     @Override
     public boolean addTo(String key, String value, DictionaryType selectedDictionary) {
-        write(key, value, selectedDictionary.getDictionaryPath(), true);
+        try {
+            write(key, value, selectedDictionary.getDictionaryPath(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -108,7 +111,11 @@ public class FileStorage implements DictionaryStorage {
         }
         fileClear(selectedDictionary.getDictionaryPath(), false);
         for (DictionaryLine readLine : readLines) {
-            write(readLine.getKey(), readLine.getValue(), selectedDictionary.getDictionaryPath(), true);
+            try {
+                write(readLine.getKey(), readLine.getValue(), selectedDictionary.getDictionaryPath(), true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }

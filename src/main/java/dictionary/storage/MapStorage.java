@@ -9,8 +9,8 @@ import java.util.*;
  * Класс отвечающий за хранение словаря в оперативной памяти
  */
 public class MapStorage implements DictionaryStorage {
-    public Map<String, DictionaryLine> map = new HashMap<>();
 
+    private Map<String, DictionaryLine> map = new HashMap<>();
     /**
      * Метод, который отвечает за чтение данных из мапы
      *
@@ -47,10 +47,7 @@ public class MapStorage implements DictionaryStorage {
     @Override
     public boolean remove(String key, DictionaryType selectedDictionary) {
 
-        if (map.remove(key)!=null) {
-            return true;
-        }
-        return false;
+        return map.remove(key) != null;
     }
      /**
      * Метод, который отвечает за поиск данных в мапе

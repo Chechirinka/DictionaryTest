@@ -1,11 +1,15 @@
 package dictionary.service;
 
 import dictionary.configuration.DictionaryType;
+import dictionary.model.DictionaryLine;
 import dictionary.storage.*;
 import dictionary.validator.Validator;
 import dictionary.view.Formation;
 
 import java.util.List;
+import java.util.Optional;
+
+import static dictionary.view.Console.NO_EXIST_KEY;
 
 /**
  * Класс отвечает за разделение слоя хранения и слоя представления
@@ -14,6 +18,7 @@ public class DictionaryService {
 
     private final Validator validator;
     private final DictionaryStorage dictionaryStorage;
+
 
     Formation formation = new Formation();
 
@@ -70,7 +75,14 @@ public class DictionaryService {
      * @param selectedDictionary выбранный язык словаря
      * @return объект типа DictionaryLine
      */
-    public String searchService(String key, DictionaryType selectedDictionary) {
-        return formation.castToString(dictionaryStorage.search(key, selectedDictionary));
+    public String searchService(String key, DictionaryType selectedDictionary)
+    {
+        final Optional<DictionaryLine> optionalReturn = Optional.ofNullable(dictionaryStorage.search(key, selectedDictionary));
+        if (optionalReturn.isEmpty()) {
+            return NO_EXIST_KEY;
+        }
+        else {
+            return formation.castToString(dictionaryStorage.search(key, selectedDictionary));
+        }
     }
 }

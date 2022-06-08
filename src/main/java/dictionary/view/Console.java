@@ -16,7 +16,7 @@ public class Console {
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
     private final static String ERROR = "Error";
-    private final static String NO_EXIST_KEY = "Ключ не найден";
+    public final static String NO_EXIST_KEY = "Ключ не найден";
     private final static String DELETE = "Удалено";
     private final static String NO_DELETE = "Не удалено";
     private final static int ACTION_ADD = 1;
@@ -89,11 +89,8 @@ public class Console {
     }
 
     private String searchPair(String key, DictionaryType selectedDictionary){
-        if (dictionaryService.searchService(key, selectedDictionary) != null){
             return dictionaryService.searchService(key, selectedDictionary);
         }
-        return NO_EXIST_KEY;
-    }
 
     private String removePair(String key, DictionaryType selectedDictionary) {
         if (dictionaryService.removeService(key, selectedDictionary)) {
