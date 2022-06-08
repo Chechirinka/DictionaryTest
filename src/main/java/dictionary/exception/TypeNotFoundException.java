@@ -1,4 +1,4 @@
-package dictionary.exeption;
+package dictionary.exception;
 
 public class TypeNotFoundException extends Exception{
     public TypeNotFoundException(String message){

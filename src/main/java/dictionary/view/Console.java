@@ -4,16 +4,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import dictionary.configuration.DictionaryType;
-import dictionary.exeption.TypeNotFoundException;
-import dictionary.model.DictionaryLine;
+import dictionary.exception.TypeNotFoundException;
 import dictionary.service.DictionaryService;
-
-import static dictionary.storage.MapStorage.NO_KEY;
 
 
 public class Console {
-
-
     private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
     private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";
     private final static String ENTER_KEY = "Enter key";

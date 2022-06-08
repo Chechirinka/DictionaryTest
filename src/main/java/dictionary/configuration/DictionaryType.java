@@ -1,6 +1,6 @@
 package dictionary.configuration;
 
-import dictionary.exeption.TypeNotFoundException;
+import dictionary.exception.TypeNotFoundException;
 
 /**
  * Перечисление, которое отвечает за хранение типов словарей

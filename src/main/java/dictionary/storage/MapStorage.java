@@ -9,8 +9,6 @@ import java.util.*;
  * Класс отвечающий за хранение словаря в оперативной памяти
  */
 public class MapStorage implements DictionaryStorage {
-
-    public static final String NO_KEY = "No key found!";
     public Map<String, DictionaryLine> map = new HashMap<>();
 
     /**
