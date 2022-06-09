@@ -1,6 +1,7 @@
-package dictionary.validator;
+package dictionarySpring.validator;
 
-import dictionary.configuration.DictionaryType;
+import dictionarySpring.configuration.DictionaryType;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
 
@@ -8,7 +9,7 @@ import java.util.regex.Pattern;
  * Класс ответственен за проверку вводимых данных пользователем
  * на основании регулярного выражения
  */
-
+    @Component
 public class RegularExpressionValidator implements Validator {
 
     private boolean isValidKey(String key, String keyPattern) {

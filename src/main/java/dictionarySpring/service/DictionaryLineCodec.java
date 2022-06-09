@@ -1,10 +1,12 @@
-package dictionary.service;
+package dictionarySpring.service;
 
-import dictionary.model.DictionaryLine;
+import dictionarySpring.model.DictionaryLine;
+import org.springframework.stereotype.Component;
 
 /**
  * Класс отвечает за работу над строкой с помощью разделителя
  */
+@Component
 public class DictionaryLineCodec {
 
     private static final String splitChar = ":";

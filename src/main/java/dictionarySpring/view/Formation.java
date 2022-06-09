@@ -1,6 +1,7 @@
-package dictionary.view;
+package dictionarySpring.view;
 
-import dictionary.model.DictionaryLine;
+import dictionarySpring.model.DictionaryLine;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Класс отвечает за форматирование данных для их представления
  */
+    @Component
 public class Formation {
 
     private static final String splitChar = "@@@@@@@@@@";

@@ -1,69 +1,107 @@
 package dictionarySpring.view;
 
-import java.util.Scanner;
-
 import dictionarySpring.configuration.DictionaryType;
-import dictionarySpring.service.DictionaryException;
+import dictionarySpring.exception.TypeNotFoundException;
 import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+import java.util.List;
+import java.util.Scanner;
+
+    @Component
 public class Console {
+    private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
+    private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";
+    private final static String ENTER_KEY = "Enter key";
+    private final static String ENTER_VALUE = "Enter value";
+    private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
+    private final static String SUCCESS = "Success";
+    private final static String ERROR = "Error";
+    public final static String NO_EXIST_KEY = "Ключ не найден";
+    private final static String DELETE = "Удалено";
+    private final static String NO_DELETE = "Не удалено";
+    private final static int ACTION_ADD = 1;
+    private final static int ACTION_READ = 2;
+    private final static int ACTION_REMOVE = 3;
+    private final static int ACTION_SEARCH = 4;
+    private final static int EXIT = 5;
 
-
+    Scanner in = new Scanner(System.in);
     private DictionaryService dictionaryService;
     private DictionaryType selectedDictionary;
 
-    public void choice() {
-        System.out.println("Select lang: 1 - English; 2 - Digital;");
-
-        try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
-        } catch(DictionaryException e){
-            System.out.println("Ошибка, такого языка не существует");
-        }
-
-    }
-
     @Autowired
     public Console(DictionaryService dictionaryService) {
+
         this.dictionaryService = dictionaryService;
     }
 
-    Scanner in = new Scanner(System.in);
+    public void choice() {
+        System.out.println(SELECT_LANGUAGE);
+
+        try {
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
+        } catch (TypeNotFoundException e) {
+            System.out.println(NO_EXIST_LANGUAGE);
+            in.nextInt();
+        }
+    }
 
     public void actions() {
-        boolean a = true;
-        while (a) {
-            System.out.println("Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit");
+        boolean isMenuActive = true;
+        while (isMenuActive) {
+            System.out.println(SELECT_ACTIONS);
             int inaction = in.nextInt();
             switch (inaction) {
-                case 1:
-                    System.out.println("Enter key");
+                case ACTION_ADD:
+                    System.out.println(ENTER_KEY);
                     String key = in.next();
-                    System.out.println("Enter value");
+                    System.out.println(ENTER_VALUE);
                     String value = in.next();
-                    System.out.println(dictionaryService.addService(key, value, selectedDictionary));
+                    System.out.println(addPair(key, value, selectedDictionary));
                     break;
-                case 2:
-                    System.out.println(dictionaryService.readService(selectedDictionary));
+                case ACTION_READ:
+                    System.out.println(readPair(selectedDictionary));
                     break;
-                case 3:
-                    System.out.println("Enter key");
+                case ACTION_REMOVE:
+                    System.out.println(ENTER_KEY);
                     key = in.next();
-                    dictionaryService.removeService(key, selectedDictionary);
+                    System.out.println(removePair(key, selectedDictionary));
                     break;
-                case 4:
-                    System.out.println("Enter key");
+                case ACTION_SEARCH:
+                    System.out.println(ENTER_KEY);
                     key = in.next();
-                    System.out.println(dictionaryService.searchService(key, selectedDictionary));
+                    System.out.println(searchPair(key, selectedDictionary));
                     break;
-                case 5:
-                    a = false;
+                case EXIT:
+                    isMenuActive = false;
             }
         }
     }
+
+    private String addPair(String key, String value, DictionaryType selectedDictionary) {
+        if (dictionaryService.addService(key, value, selectedDictionary)) {
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+
+    private List<String> readPair(DictionaryType selectedDictionary) {
+        return dictionaryService.readService(selectedDictionary);
+    }
+
+    private String searchPair(String key, DictionaryType selectedDictionary){
+        return dictionaryService.searchService(key, selectedDictionary);
+    }
+
+    private String removePair(String key, DictionaryType selectedDictionary) {
+        if (dictionaryService.removeService(key, selectedDictionary)) {
+            return DELETE;
+        }
+        return NO_DELETE;
+    }
 }
+
 
 

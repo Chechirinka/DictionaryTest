@@ -1,6 +1,6 @@
-package dictionary.validator;
+package dictionarySpring.validator;
 
-import dictionary.configuration.DictionaryType;
+import dictionarySpring.configuration.DictionaryType;
 
 /**
  * Класс ответственен за проверку вводимых данных пользователем

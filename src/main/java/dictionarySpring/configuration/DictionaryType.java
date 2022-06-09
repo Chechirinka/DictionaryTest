@@ -1,12 +1,15 @@
 package dictionarySpring.configuration;
 
-import dictionarySpring.service.DictionaryException;
+import dictionarySpring.exception.TypeNotFoundException;
 
+/**
+ * Перечисление, которое отвечает за хранение типов словарей
+ */
 public enum DictionaryType {
-    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "DictionaryE.txt", "English"),
-    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "DictionaryD.txt", "Digital");
+    DICTIONARY_ONE(1, "^[a-zA-Z]{4}$", "[a-zA-Z]+", "src/main/resources/DictionaryE.txt", "English"),
+    DICTIONARY_TWO(2, "^[0-9]{5}$", "[a-zA-Z]+", "src/main/resources/DictionaryD.txt", "Digital");
 
-    private static final String splitChar = ":";
+    private static final String LANGUAGE_NOT_EXIST = "Ошибка, такого словаря нет";
     private final Integer number;
     private final String patternKey;
     private final String patternValue;
@@ -19,8 +22,13 @@ public enum DictionaryType {
         this.dictionaryPath = dictionaryPath;
     }
 
-    public static String getSymbol() {
-        return splitChar;
+    public static DictionaryType getDictionaryTypeByNumber(Integer number) throws TypeNotFoundException {
+        for (DictionaryType dictionaryType : DictionaryType.values()) {
+            if (dictionaryType.getNumber().equals(number)) {
+                return dictionaryType;
+            }
+        }
+        throw new TypeNotFoundException(LANGUAGE_NOT_EXIST);
     }
 
     public Integer getNumber() {
@@ -37,14 +45,6 @@ public enum DictionaryType {
 
     public String getDictionaryPath() {
         return dictionaryPath;
-    }
-
-   public static DictionaryType getDictionaryTypeByNumber(Integer number) throws DictionaryException{
-        for (DictionaryType dictionaryType : DictionaryType.values()) {
-            if (dictionaryType.getNumber().equals(number)) {
-                return dictionaryType;
-            }
-        }  throw new DictionaryException("Ошибка, такого словаря нет");
     }
 }
 
