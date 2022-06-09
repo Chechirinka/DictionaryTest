@@ -3,6 +3,7 @@ package dictionarySpring.storage;
 import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.service.DictionaryLineCodec;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -14,8 +15,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Класс отвечающий за хранение словаря в файловой системе
  */
 public class FileStorage implements DictionaryStorage {
-
-    private DictionaryLineCodec dictionaryLineCodec = new DictionaryLineCodec();
+ @Autowired
+    private DictionaryLineCodec dictionaryLineCodec;
 
     private void fileClear(String path, boolean isClear) {
         try {
