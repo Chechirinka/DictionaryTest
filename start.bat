@@ -1,3 +1,3 @@
-mvn clean package exec:java -Dexec.mainClass="dictionarySpring.DictionaryTest"
+mvn clean package exec:java -Dexec.mainClass="dictionarySpring.Main"
 
 pause
