@@ -1,6 +1,7 @@
 package dictionarySpring.view;
 
 import dictionarySpring.model.DictionaryLine;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ import java.util.List;
     @Component
 public class Formation {
 
-    private static final String splitChar = "@@@@@@@@@@";
+    @Value("${splitCharView}")
+    String splitCharView;
 
     /**
      * Метод отвечает за соединение ключа и значения через заданный разделитель
@@ -20,7 +22,7 @@ public class Formation {
      * @return строку
      */
     public String castToString(DictionaryLine dictionaryLine) {
-        return dictionaryLine.getKey() + splitChar + dictionaryLine.getValue();
+        return dictionaryLine.getKey() + splitCharView + dictionaryLine.getValue();
     }
 
     /**

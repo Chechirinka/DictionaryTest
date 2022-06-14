@@ -1,6 +1,7 @@
 package dictionarySpring.service;
 
 import dictionarySpring.model.DictionaryLine;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DictionaryLineCodec {
 
-    private static final String splitChar = ":";
+    @Value("${splitChar}")
+    //private static final String splitChar = ":";
+    String splitChar;
 
-    public static String getSplitChar() {
+    public String getSplitChar() {
         return splitChar;
     }
 

@@ -43,8 +43,7 @@ public class DictionaryService {
      */
     public boolean addService(String key, String value, DictionaryType selectedDictionary) {
         if (validator.isValidPair(key, value, selectedDictionary)) {
-            dictionaryStorage.addTo(key, value, selectedDictionary);
-            return true;
+            return dictionaryStorage.addTo(key, value, selectedDictionary);
         } else {
             return false;
         }
