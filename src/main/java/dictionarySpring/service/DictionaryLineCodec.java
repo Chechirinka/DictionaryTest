@@ -19,7 +19,6 @@ public class DictionaryLineCodec {
 
     /**
      * Метод разбивает заданную строку на совпадения с заданным регулярным выражением
-     *
      * @param line полученная строка из FileStorage
      * @return объект DictionaryLine
      */
