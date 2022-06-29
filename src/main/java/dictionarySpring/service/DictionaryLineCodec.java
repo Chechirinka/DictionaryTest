@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 public class DictionaryLineCodec {
 
     @Value("${splitChar}")
-    //private static final String splitChar = ":";
-    String splitChar;
+    private String splitChar;
 
     public String getSplitChar() {
         return splitChar;
