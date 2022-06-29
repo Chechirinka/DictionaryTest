@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-import static dictionarySpring.view.Console.NO_EXIST_KEY;
+import static dictionarySpring.view.ActionController.NO_EXIST_KEY;
 
 /**
  * Класс отвечает за разделение слоя хранения и слоя представления

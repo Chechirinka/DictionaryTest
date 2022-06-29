@@ -4,14 +4,13 @@ import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.exception.TypeNotFoundException;
 import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Scanner;
 
     @Controller
-public class Console {
+public class ActionController {
     private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
     private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";
     private final static String ENTER_KEY = "Enter key";
@@ -33,7 +32,7 @@ public class Console {
     private DictionaryType selectedDictionary;
 
     @Autowired
-    public Console(DictionaryService dictionaryService) {
+    public ActionController(DictionaryService dictionaryService) {
 
         this.dictionaryService = dictionaryService;
     }
