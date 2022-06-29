@@ -5,11 +5,12 @@ import dictionarySpring.exception.TypeNotFoundException;
 import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Scanner;
 
-    @Component
+    @Controller
 public class Console {
     private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
     private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";

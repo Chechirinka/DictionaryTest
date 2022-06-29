@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 public class DictionaryLineCodec {
 
     @Value("${splitChar}")
-    //private static final String splitChar = ":";
-    String splitChar;
+    private String splitChar;
 
     public String getSplitChar() {
         return splitChar;
@@ -20,7 +19,6 @@ public class DictionaryLineCodec {
 
     /**
      * Метод разбивает заданную строку на совпадения с заданным регулярным выражением
-     *
      * @param line полученная строка из FileStorage
      * @return объект DictionaryLine
      */

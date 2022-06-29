@@ -14,7 +14,7 @@ import java.util.List;
 public class Formation {
 
     @Value("${splitCharView}")
-    String splitCharView;
+    private String splitCharView;
 
     /**
      * Метод отвечает за соединение ключа и значения через заданный разделитель
