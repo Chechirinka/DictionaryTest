@@ -4,14 +4,14 @@ import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.storage.*;
 import dictionarySpring.validator.Validator;
-import dictionarySpring.view.Formation;
+import dictionarySpring.controllers.Formation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-import static dictionarySpring.view.ActionController.NO_EXIST_KEY;
+import static dictionarySpring.controllers.ActionController.NO_EXIST_KEY;
 
 /**
  * Класс отвечает за разделение слоя хранения и слоя представления

@@ -1,4 +1,4 @@
-package dictionarySpring.view;
+package dictionarySpring.controllers;
 
 import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.exception.TypeNotFoundException;
