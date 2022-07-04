@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Removing</title>
 </head>
 <body>
+Страница удаления
+
+<p th:text = "${id}"/>
+
+<div>
+    <a th:href="@{'/work/work-lib-menu/?id=' + ${id}}">Вернуться в меню словаря</a>
+</div>
 
 </body>
 </html>

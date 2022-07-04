@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My app</title>
 </head>
+
 <body>
+
+<p>Тут читают</p>
+
+<p th:text="${result}"/>
+
+<div>
+    <a th:href="@{'/work/work-lib-menu/?id=' + ${id}}">Вернуться в меню словаря</a>
+</div>
 
 </body>
 </html>

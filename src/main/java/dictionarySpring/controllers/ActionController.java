@@ -5,30 +5,29 @@ import dictionarySpring.exception.TypeNotFoundException;
 import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Scanner;
 
-    @Controller
+@Controller
+@RequestMapping("/action")
+
 public class ActionController {
+    public final static String NO_EXIST_KEY = "Ключ не найден";
     private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
-    private final static String SELECT_ACTIONS = "Enter action: 1-add; 2 - read; 3 - remove; 4 - search; 5-exit";
-    private final static String ENTER_KEY = "Enter key";
-    private final static String ENTER_VALUE = "Enter value";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
     private final static String ERROR = "Error";
-    public final static String NO_EXIST_KEY = "Ключ не найден";
     private final static String DELETE = "Удалено";
     private final static String NO_DELETE = "Не удалено";
-    private final static int ACTION_ADD = 1;
-    private final static int ACTION_READ = 2;
-    private final static int ACTION_REMOVE = 3;
-    private final static int ACTION_SEARCH = 4;
-    private final static int EXIT = 5;
+    private final DictionaryService dictionaryService;
 
-    Scanner in = new Scanner(System.in);
-    private DictionaryService dictionaryService;
     private DictionaryType selectedDictionary;
 
     @Autowired
@@ -37,71 +36,77 @@ public class ActionController {
         this.dictionaryService = dictionaryService;
     }
 
-    public void choice() {
-        System.out.println(SELECT_LANGUAGE);
+    @GetMapping("/read")
 
+    public String read(@RequestParam(value = "id") int id,
+                             ModelMap model) {
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(in.nextInt());
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
-            in.nextInt();
         }
+        List<String> readResult = dictionaryService.readService(selectedDictionary);
+
+        model.addAttribute("id", id);
+        model.addAttribute("result", readResult);
+        return "action_results/read_result";
     }
 
-    public void actions() {
-        boolean isMenuActive = true;
-        while (isMenuActive) {
-            System.out.println(SELECT_ACTIONS);
-            int inaction = in.nextInt();
-            switch (inaction) {
-                case ACTION_ADD:
-                    System.out.println(ENTER_KEY);
-                    String key = in.next();
-                    System.out.println(ENTER_VALUE);
-                    String value = in.next();
-                    System.out.println(addPair(key, value, selectedDictionary));
-                    break;
-                case ACTION_READ:
-                    System.out.println(readPair(selectedDictionary));
-                    break;
-                case ACTION_REMOVE:
-                    System.out.println(ENTER_KEY);
-                    key = in.next();
-                    System.out.println(removePair(key, selectedDictionary));
-                    break;
-                case ACTION_SEARCH:
-                    System.out.println(ENTER_KEY);
-                    key = in.next();
-                    System.out.println(searchPair(key, selectedDictionary));
-                    break;
-                case EXIT:
-                    isMenuActive = false;
-            }
-        }
-    }
+    @PostMapping("/add")
 
-    private String addPair(String key, String value, DictionaryType selectedDictionary) {
+    public String write(@RequestParam(value = "key") String key,
+                        @RequestParam(value = "value") String value,
+                        @RequestParam(value = "id") int id, Model model) {
+        model.addAttribute("id", id);
+        try {
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+        } catch (TypeNotFoundException e) {
+            System.out.println(NO_EXIST_LANGUAGE);
+        }
         if (dictionaryService.addService(key, value, selectedDictionary)) {
-            return SUCCESS;
+            model.addAttribute("result", SUCCESS);
+        } else {
+            model.addAttribute("result", ERROR);
         }
-        return ERROR;
+        return "action_results/add_result";
     }
 
-    private List<String> readPair(DictionaryType selectedDictionary) {
-        return dictionaryService.readService(selectedDictionary);
+    @GetMapping("/search")
+
+    public String search(@RequestParam String key,
+                         @RequestParam(value = "id") int id, Model model) {
+        model.addAttribute("id", id);
+        try {
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+        } catch (TypeNotFoundException e) {
+            System.out.println(NO_EXIST_LANGUAGE);
+        }
+        String searchResult = dictionaryService.searchService(key, selectedDictionary);
+        model.addAttribute("result", searchResult);
+        return "action_results/search_result";
     }
 
-    private String searchPair(String key, DictionaryType selectedDictionary){
-        return dictionaryService.searchService(key, selectedDictionary);
-    }
+    @PostMapping("/remove")
 
-    private String removePair(String key, DictionaryType selectedDictionary) {
+    public String remove(@RequestParam String key,
+                         @RequestParam(value = "id") int id, Model model) {
+        try {
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+        } catch (TypeNotFoundException e) {
+            System.out.println(NO_EXIST_LANGUAGE);
+        }
         if (dictionaryService.removeService(key, selectedDictionary)) {
-            return DELETE;
+            model.addAttribute("id", DELETE);
+        } else {
+            model.addAttribute("id", NO_DELETE);
         }
-        return NO_DELETE;
+        return "action_results/remove_result";
     }
 }
+
+
+
+
 
 
 

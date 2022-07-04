@@ -6,14 +6,25 @@ import org.springframework.stereotype.Component;
 
 public class DictionaryLine {
 
-    private final String key;
-    private final String value;
+
+    public DictionaryLine() {
+    }
+
+    private String key;
+    private String value;
 
     public DictionaryLine(String key, String value) {
         this.key = key;
         this.value = value;
     }
 
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
     public String getKey() {
         return key;
     }

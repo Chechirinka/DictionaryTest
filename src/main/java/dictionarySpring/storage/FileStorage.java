@@ -4,8 +4,10 @@ import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.service.DictionaryLineCodec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,12 +17,13 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Класс отвечающий за хранение словаря в файловой системе
  */
 public class FileStorage implements DictionaryStorage {
- @Autowired
+
+    @Autowired
     private DictionaryLineCodec dictionaryLineCodec;
 
     private void fileClear(String path, boolean isClear) {
         try {
-            new FileWriter(path, isClear).close();
+            new FileWriter(new ClassPathResource(path).getFile(), isClear).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,10 +38,15 @@ public class FileStorage implements DictionaryStorage {
      */
     private void write(String key, String value, String path, boolean isWrite) throws IOException {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, UTF_8, isWrite))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new ClassPathResource(path).getFile(), UTF_8, isWrite))) {
             DictionaryLine dictionaryLine = new DictionaryLine(key, value);
-            writer.write(dictionaryLineCodec.decode(dictionaryLine) + "\n");
+            if (!path.isEmpty()) {
+                writer.write(dictionaryLineCodec.decode(dictionaryLine) + "\n");
+            } else {
+                writer.write(dictionaryLineCodec.decode(dictionaryLine));
+            }
         }
+
     }
 
     /**
@@ -50,7 +58,7 @@ public class FileStorage implements DictionaryStorage {
     private List<DictionaryLine> operationRead(String path) {
 
         List<DictionaryLine> results = new LinkedList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource(path).getFile()), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 results.add(dictionaryLineCodec.encode(line));
