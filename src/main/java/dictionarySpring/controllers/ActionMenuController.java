@@ -31,12 +31,12 @@ public class ActionMenuController {
         return "action_menu/remove_menu";
     }
 
-    @GetMapping("/start")//Выбор языка
+    @GetMapping("/start")
     public String menuLibraries() {
         return "action_menu/choose_language_menu";
     }
 
-    @GetMapping("/work-lib-menu")//Какие действия мы хотим выполнить
+    @GetMapping("/work-lib-menu")
     public String workWithLibrary(@RequestParam(name = "id") Long id, Model model) {
         model.addAttribute("id", id);
         return "action_menu/action_library_menu";
