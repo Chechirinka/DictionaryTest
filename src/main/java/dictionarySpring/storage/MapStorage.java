@@ -14,12 +14,14 @@ import java.util.Map;
 public class MapStorage implements DictionaryStorage {
 
     private Map<String, DictionaryLine> map = new HashMap<>();
+
     /**
      * Метод, который отвечает за чтение данных из мапы
      *
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <Ключ, Значение>
      */
+
     @Override
     public List<DictionaryLine> read(DictionaryType selectedDictionary) {
 
@@ -52,6 +54,7 @@ public class MapStorage implements DictionaryStorage {
 
         return map.remove(key) != null;
     }
+
     /**
      * Метод, который отвечает за поиск данных в мапе
      *

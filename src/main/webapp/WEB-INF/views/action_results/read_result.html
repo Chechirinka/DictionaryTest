@@ -10,7 +10,17 @@
 
 <p>Тут читают</p>
 
-<p th:text="${result}"/>
+<table>
+    <tr>
+        <th>Словарь</th>
+    </tr>
+
+    <tr th:each="lst : ${result}">
+        <td th:utext="${lst}">brand</td>
+
+    </tr>
+
+</table>
 
 <div>
     <a th:href="@{'/work/work-lib-menu/?id=' + ${id}}">Вернуться в меню словаря</a>

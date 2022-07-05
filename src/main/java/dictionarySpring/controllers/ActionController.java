@@ -6,7 +6,6 @@ import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +23,9 @@ public class ActionController {
     private final static String ERROR = "Error";
     private final static String DELETE = "Удалено";
     private final static String NO_DELETE = "Не удалено";
+    private final static String RESULT = "result";
+    public final static String ID = "id";
+
     private final DictionaryService dictionaryService;
 
     private DictionaryType selectedDictionary;
@@ -37,7 +39,7 @@ public class ActionController {
     @GetMapping("/read")
 
     public String read(@RequestParam(value = "id") int id,
-                             ModelMap model) {
+                             Model model) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
@@ -45,8 +47,8 @@ public class ActionController {
         }
         List<String> readResult = dictionaryService.readService(selectedDictionary);
 
-        model.addAttribute("id", id);
-        model.addAttribute("result", readResult);
+        model.addAttribute(ID, id);
+        model.addAttribute(RESULT, readResult);
         return "action_results/read_result";
     }
 
@@ -62,9 +64,9 @@ public class ActionController {
             System.out.println(NO_EXIST_LANGUAGE);
         }
         if (dictionaryService.addService(key, value, selectedDictionary)) {
-            model.addAttribute("result", SUCCESS);
+            model.addAttribute(RESULT, SUCCESS);
         } else {
-            model.addAttribute("result", ERROR);
+            model.addAttribute(RESULT, ERROR);
         }
         return "action_results/add_result";
     }
@@ -80,7 +82,7 @@ public class ActionController {
             System.out.println(NO_EXIST_LANGUAGE);
         }
         String searchResult = dictionaryService.searchService(key, selectedDictionary);
-        model.addAttribute("result", searchResult);
+        model.addAttribute(RESULT, searchResult);
         return "action_results/search_result";
     }
 
@@ -88,15 +90,16 @@ public class ActionController {
 
     public String remove(@RequestParam String key,
                          @RequestParam(value = "id") int id, Model model) {
+            model.addAttribute(ID, id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
         if (dictionaryService.removeService(key, selectedDictionary)) {
-            model.addAttribute("id", DELETE);
+            model.addAttribute(RESULT, DELETE);
         } else {
-            model.addAttribute("id", NO_DELETE);
+            model.addAttribute(RESULT, NO_DELETE);
         }
         return "action_results/remove_result";
     }

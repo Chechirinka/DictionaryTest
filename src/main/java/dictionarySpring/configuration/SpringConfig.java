@@ -1,6 +1,5 @@
 package dictionarySpring.configuration;
 
-import dictionarySpring.service.DictionaryLineCodec;
 import dictionarySpring.storage.DictionaryStorage;
 import dictionarySpring.storage.FileStorage;
 import dictionarySpring.storage.MapStorage;
@@ -18,7 +17,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
 @ComponentScan("dictionarySpring")
-@PropertySource(value = "classpath:test.yml")
+@PropertySource(value = "classpath:properties.yml")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
