@@ -21,7 +21,7 @@
 
 <p>Select language:</p>
 
-<form action="/work/work-lib-menu" method="get">
+<form action="/menu/work-lib-menu" method="get">
 
     <div>
         <select name="id">
