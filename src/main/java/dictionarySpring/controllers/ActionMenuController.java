@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static dictionarySpring.controllers.ActionController.ID;
 
 @Controller
-@RequestMapping("/menu")
+@RequestMapping()
 public class ActionMenuController {
 
     @GetMapping("/add-menu")
