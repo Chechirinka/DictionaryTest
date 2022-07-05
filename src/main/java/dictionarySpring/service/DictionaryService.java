@@ -1,11 +1,9 @@
 package dictionarySpring.service;
 
 import dictionarySpring.configuration.DictionaryType;
-import dictionarySpring.exception.TypeNotFoundException;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.storage.*;
 import dictionarySpring.validator.Validator;
-import dictionarySpring.controllers.Formation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-
-import static dictionarySpring.controllers.ExceptionController.ERROR;
 
 /**
  * Класс отвечает за разделение слоя хранения и слоя представления
@@ -25,6 +21,7 @@ public class DictionaryService {
     private final Validator validator;
     private final DictionaryStorage dictionaryStorage;
 
+    public final static String NO_EXIST_KEY = "Key don't found!";
     @Autowired
     public DictionaryService(Validator validator, DictionaryStorage dictionaryStorage) {
         this.validator = validator;
@@ -81,7 +78,7 @@ public class DictionaryService {
     {
         final Optional<DictionaryLine> optionalReturn = Optional.ofNullable(dictionaryStorage.search(key, selectedDictionary));
         if (optionalReturn.isEmpty()) {
-            return new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(NO_EXIST_KEY, HttpStatus.BAD_REQUEST);
         }
         else {
             return new ResponseEntity<>(dictionaryStorage.search(key, selectedDictionary), HttpStatus.OK);

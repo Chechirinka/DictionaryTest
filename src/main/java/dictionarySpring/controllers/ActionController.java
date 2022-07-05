@@ -18,11 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/action")
 public class ActionController{
-    public final static String NO_EXIST_KEY = "Ключ не найден";
-    private final static String SELECT_LANGUAGE = "Select lang: 1 - English; 2 - Digital;";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
-    private final static String ERROR = "Error";
+    public final static String ERROR = "Error";
     private final static String DELETE = "Delete";
     private final static String NO_DELETE = "No delete";
     private final DictionaryService dictionaryService;
@@ -38,9 +36,9 @@ public class ActionController{
 
     @GetMapping("read")
     @ResponseBody
-    public ResponseEntity<?> read() {
+    public ResponseEntity<?> read(@RequestParam(value = "id") int id) {
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(1);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
@@ -49,9 +47,10 @@ public class ActionController{
 
     @PostMapping("write")
     @ResponseBody
-    public ResponseEntity<?> write(@RequestBody DictionaryLine dictionaryLine) {
+    public ResponseEntity<?> write(@RequestParam(value = "id") int id,
+                                   @RequestBody DictionaryLine dictionaryLine) {
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(1);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
@@ -62,9 +61,10 @@ public class ActionController{
     }
 
     @GetMapping("search")
-    public ResponseEntity search(@RequestParam String key) {
+    public ResponseEntity search(@RequestParam(value = "id") int id,
+                                 @RequestParam(value = "key") String key) {
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(1);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
@@ -73,9 +73,10 @@ public class ActionController{
 
     @PostMapping("remove")
     @ResponseBody
-    public ResponseEntity<?> remove(@RequestParam String key){
+    public ResponseEntity<?> remove(@RequestParam(value = "id") int id,
+                                    @RequestParam(value = "key") String key){
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(1);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
