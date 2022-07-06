@@ -20,7 +20,7 @@
 <form action="/work-lib-menu" method="get">
 
     <div>
-        <select name="id">
+        <select name="dictionaryId">
             <option value="1">English</option>
             <option value="2">Digital</option>
         </select>

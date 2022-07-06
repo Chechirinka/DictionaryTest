@@ -9,8 +9,10 @@
 
 <p th:text = "${result}"/>
 
+<p th:text="${errorResult}"/>
+
 <div>
-    <a th:href="@{'/work-lib-menu/?id=' + ${id}}">Вернуться в меню словаря</a>
+    <a th:href="@{'/work-lib-menu/?id=' + ${dictionaryId}}">Вернуться в меню словаря</a>
 </div>
 
 </body>

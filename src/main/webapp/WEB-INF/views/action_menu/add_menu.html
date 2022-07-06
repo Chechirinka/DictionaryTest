@@ -8,7 +8,7 @@
 
 <body>
 <form action="/action/add" method="post">
-    <div id="id_lib" th:text="${id}">Словарь</div>
+    <div id="id_lib" th:text="${dictionaryId}">Словарь</div>
     <p>Введите ключ и значение</p>
 
     <div>
@@ -22,11 +22,11 @@
     </div>
     <br/>
     <div>
-        <button id="id" name="id" value="">Добавить пару</button>
+        <button id="dictionaryId" name="dictionaryId" value="">Добавить пару</button>
     </div>
 
     <script>
-        document.getElementById('id').setAttribute("value",document.getElementById("id_lib").innerText);
+        document.getElementById('dictionaryId').setAttribute("value",document.getElementById("id_lib").innerText);
     </script>
 </form>
 </body>

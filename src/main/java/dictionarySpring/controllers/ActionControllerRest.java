@@ -28,29 +28,29 @@ public class ActionControllerRest{
 
 
     @Autowired
-    public ActionControllerRest(DictionaryService dictionaryService, DictionaryLine dictionaryLine) {
+    public ActionControllerRest(DictionaryService dictionaryService) {
         this.dictionaryService = dictionaryService;
     }
 
     @GetMapping("read")
     @ResponseBody
-    public ResponseEntity<?> read(@RequestParam(value = "id") int id) {
+    public ResponseEntity<?> read(@RequestParam(value = "dictionaryId") int id) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            return new ResponseEntity<>(NO_EXIST_LANGUAGE, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(dictionaryService.readServiceRest(selectedDictionary), HttpStatus.OK);
     }
 
     @PostMapping("write")
     @ResponseBody
-    public ResponseEntity<?> write(@RequestParam(value = "id") int id,
+    public ResponseEntity<?> write(@RequestParam(value = "dictionaryId") int id,
                                    @RequestBody DictionaryLine dictionaryLine) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            return new ResponseEntity<>(NO_EXIST_LANGUAGE, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if (dictionaryService.addService(dictionaryLine.getKey(), dictionaryLine.getValue(), selectedDictionary)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
@@ -59,24 +59,24 @@ public class ActionControllerRest{
     }
 
     @GetMapping("search")
-    public ResponseEntity search(@RequestParam(value = "id") int id,
+    public ResponseEntity<?> search(@RequestParam(value = "dictionaryId") int id,
                                  @RequestParam(value = "key") String key) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            return new ResponseEntity<>(NO_EXIST_LANGUAGE, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return dictionaryService.searchServiceRest(key, selectedDictionary);
     }
 
     @PostMapping("remove")
     @ResponseBody
-    public ResponseEntity<?> remove(@RequestParam(value = "id") int id,
+    public ResponseEntity<?> remove(@RequestParam(value = "dictionaryId") int id,
                                     @RequestParam(value = "key") String key){
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            return new ResponseEntity<>(NO_EXIST_LANGUAGE, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if (dictionaryService.removeService(key, selectedDictionary)) {
             return new ResponseEntity<>(DELETE, HttpStatus.OK);

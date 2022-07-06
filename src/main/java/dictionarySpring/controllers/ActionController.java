@@ -17,13 +17,15 @@ import java.util.List;
 @RequestMapping("/action")
 
 public class ActionController {
+
+    private final static String ERROR_LANGUAGE = "errorResult";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
     private final static String ERROR = "Error";
     private final static String DELETE = "Удалено";
     private final static String NO_DELETE = "Не удалено";
     private final static String RESULT = "result";
-    public final static String ID = "id";
+    public final static String ID = "dictionaryId";
 
     private final DictionaryService dictionaryService;
 
@@ -31,18 +33,17 @@ public class ActionController {
 
     @Autowired
     public ActionController(DictionaryService dictionaryService) {
-
         this.dictionaryService = dictionaryService;
     }
 
     @GetMapping("/read")
 
-    public String read(@RequestParam(value = "id") int id,
+    public String read(@RequestParam(value = "dictionaryId") int id,
                        Model model) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
         List<String> readResult = dictionaryService.readService(selectedDictionary);
 
@@ -55,12 +56,12 @@ public class ActionController {
 
     public String write(@RequestParam(value = "key") String key,
                         @RequestParam(value = "value") String value,
-                        @RequestParam(value = "id") int id, Model model) {
-        model.addAttribute("id", id);
+                        @RequestParam(value = "dictionaryId") int id, Model model) {
+        model.addAttribute(ID, id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
         if (dictionaryService.addService(key, value, selectedDictionary)) {
             model.addAttribute(RESULT, SUCCESS);
@@ -73,12 +74,12 @@ public class ActionController {
     @GetMapping("/search")
 
     public String search(@RequestParam String key,
-                         @RequestParam(value = "id") int id, Model model) {
-        model.addAttribute("id", id);
+                         @RequestParam(value = "dictionaryId") int id, Model model) {
+        model.addAttribute(ID, id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
         String searchResult = dictionaryService.searchService(key, selectedDictionary);
         model.addAttribute(RESULT, searchResult);
@@ -88,12 +89,12 @@ public class ActionController {
     @PostMapping("/remove")
 
     public String remove(@RequestParam String key,
-                         @RequestParam(value = "id") int id, Model model) {
+                         @RequestParam(value = "dictionaryId") int id, Model model) {
         model.addAttribute(ID, id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
-            System.out.println(NO_EXIST_LANGUAGE);
+            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
         if (dictionaryService.removeService(key, selectedDictionary)) {
             model.addAttribute(RESULT, DELETE);

@@ -13,28 +13,28 @@ import static dictionarySpring.controllers.ActionController.ID;
 public class ActionMenuController {
 
     @GetMapping("/add-menu")
-    public String menuAddPair(@RequestParam(name = "id") Long id,
+    public String menuAddPair(@RequestParam(name = "dictionaryId") Long id,
                               Model model){
         model.addAttribute(ID, id);
         return "action_menu/add_menu";
     }
 
     @GetMapping("/search-menu")
-    public String menuSearchPair(@RequestParam(name = "id") Long id,
+    public String menuSearchPair(@RequestParam(name = "dictionaryId") Long id,
                                  Model model){
         model.addAttribute(ID, id);
         return "action_menu/search_menu";
     }
 
     @GetMapping("/remove-menu")
-    public String menuDeletePair(@RequestParam(name = "id") Long id,
+    public String menuDeletePair(@RequestParam(name = "dictionaryId") Long id,
                                  Model model){
         model.addAttribute(ID, id);
         return "action_menu/remove_menu";
     }
 
     @GetMapping("/work-lib-menu")
-    public String workWithLibrary(@RequestParam(name = "id") Long id, Model model) {
+    public String workWithLibrary(@RequestParam(name = "dictionaryId") Long id, Model model) {
         model.addAttribute(ID, id);
         return "action_menu/action_library_menu";
     }
