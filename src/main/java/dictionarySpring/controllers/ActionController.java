@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/action")
 
 public class ActionController {
-    public final static String NO_EXIST_KEY = "Ключ не найден";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
     private final static String ERROR = "Error";

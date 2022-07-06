@@ -24,14 +24,12 @@ public class ActionControllerRest{
     private final static String DELETE = "Delete";
     private final static String NO_DELETE = "No delete";
     private final DictionaryService dictionaryService;
-    private final DictionaryLine dictionaryLine;
     private DictionaryType selectedDictionary;
 
 
     @Autowired
     public ActionControllerRest(DictionaryService dictionaryService, DictionaryLine dictionaryLine) {
         this.dictionaryService = dictionaryService;
-        this.dictionaryLine = dictionaryLine;
     }
 
     @GetMapping("read")
