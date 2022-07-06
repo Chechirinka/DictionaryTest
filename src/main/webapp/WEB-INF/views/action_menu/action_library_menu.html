@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>My app</title>
+</head>
+
+<body>
+<p>Какую операцию вы хотите выполнить?</p>
+<br/>
+<a th:href="@{'/add-menu/?id=' + ${id}}">Добавление пары</a>
+<br/>
+<a th:href="@{'/search-menu/?id=' + ${id}}">Поиск пары по ключу</a>
+<br/>
+<a th:href="@{'/remove-menu/?id=' + ${id}}">Удаление пары</a>
+<br/>
+<a th:href="@{'/action/read/?id=' + ${id}}">Показать содержимое словаря</a>
+<br/>
+
+<a href="index.jsp">Вернуться к выбору словаря</a>
+</body>
+
+</html>

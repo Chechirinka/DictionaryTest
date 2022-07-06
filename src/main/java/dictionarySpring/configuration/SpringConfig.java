@@ -29,6 +29,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public SpringConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
+
     @Bean(name = "dictionaryFactory")
     public DictionaryStorage getDictionary(@Value("${type}") String args) {
         if (args.equals(MAP)) {

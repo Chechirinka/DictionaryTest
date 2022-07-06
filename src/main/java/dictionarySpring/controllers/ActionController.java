@@ -2,87 +2,105 @@ package dictionarySpring.controllers;
 
 import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.exception.TypeNotFoundException;
-import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/action-rest")
-public class ActionController{
+import java.util.List;
+
+@Controller
+@RequestMapping("/action")
+
+public class ActionController {
+    public final static String NO_EXIST_KEY = "Ключ не найден";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
     private final static String SUCCESS = "Success";
-    public final static String ERROR = "Error";
-    private final static String DELETE = "Delete";
-    private final static String NO_DELETE = "No delete";
+    private final static String ERROR = "Error";
+    private final static String DELETE = "Удалено";
+    private final static String NO_DELETE = "Не удалено";
+    private final static String RESULT = "result";
+    public final static String ID = "id";
+
     private final DictionaryService dictionaryService;
-    private final DictionaryLine dictionaryLine;
+
     private DictionaryType selectedDictionary;
 
-
     @Autowired
-    public ActionController(DictionaryService dictionaryService, DictionaryLine dictionaryLine) {
+    public ActionController(DictionaryService dictionaryService) {
+
         this.dictionaryService = dictionaryService;
-        this.dictionaryLine = dictionaryLine;
     }
 
-    @GetMapping("read")
-    @ResponseBody
-    public ResponseEntity<?> read(@RequestParam(value = "id") int id) {
+    @GetMapping("/read")
+
+    public String read(@RequestParam(value = "id") int id,
+                       Model model) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
-        return new ResponseEntity<>(dictionaryService.readService(selectedDictionary), HttpStatus.OK);
+        List<String> readResult = dictionaryService.readService(selectedDictionary);
+
+        model.addAttribute(ID, id);
+        model.addAttribute(RESULT, readResult);
+        return "action_results/read_result";
     }
 
-    @PostMapping("write")
-    @ResponseBody
-    public ResponseEntity<?> write(@RequestParam(value = "id") int id,
-                                   @RequestBody DictionaryLine dictionaryLine) {
+    @PostMapping("/add")
+
+    public String write(@RequestParam(value = "key") String key,
+                        @RequestParam(value = "value") String value,
+                        @RequestParam(value = "id") int id, Model model) {
+        model.addAttribute("id", id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
-        if (dictionaryService.addService(dictionaryLine.getKey(), dictionaryLine.getValue(), selectedDictionary)) {
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        if (dictionaryService.addService(key, value, selectedDictionary)) {
+            model.addAttribute(RESULT, SUCCESS);
+        } else {
+            model.addAttribute(RESULT, ERROR);
         }
-        return new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
+        return "action_results/add_result";
     }
 
-    @GetMapping("search")
-    public ResponseEntity search(@RequestParam(value = "id") int id,
-                                 @RequestParam(value = "key") String key) {
+    @GetMapping("/search")
+
+    public String search(@RequestParam String key,
+                         @RequestParam(value = "id") int id, Model model) {
+        model.addAttribute("id", id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
-        return dictionaryService.searchService(key, selectedDictionary);
+        String searchResult = dictionaryService.searchService(key, selectedDictionary);
+        model.addAttribute(RESULT, searchResult);
+        return "action_results/search_result";
     }
 
-    @PostMapping("remove")
-    @ResponseBody
-    public ResponseEntity<?> remove(@RequestParam(value = "id") int id,
-                                    @RequestParam(value = "key") String key){
+    @PostMapping("/remove")
+
+    public String remove(@RequestParam String key,
+                         @RequestParam(value = "id") int id, Model model) {
+        model.addAttribute(ID, id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
             System.out.println(NO_EXIST_LANGUAGE);
         }
         if (dictionaryService.removeService(key, selectedDictionary)) {
-            return new ResponseEntity<>(DELETE, HttpStatus.OK);
+            model.addAttribute(RESULT, DELETE);
+        } else {
+            model.addAttribute(RESULT, NO_DELETE);
         }
-        return new ResponseEntity<>(NO_DELETE, HttpStatus.BAD_REQUEST);
+        return "action_results/remove_result";
     }
 }

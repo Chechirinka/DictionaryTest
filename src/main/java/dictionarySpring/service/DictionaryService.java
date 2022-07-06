@@ -1,6 +1,7 @@
 package dictionarySpring.service;
 
 import dictionarySpring.configuration.DictionaryType;
+import dictionarySpring.controllers.Formation;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.storage.*;
 import dictionarySpring.validator.Validator;
@@ -22,6 +23,10 @@ public class DictionaryService {
     private final DictionaryStorage dictionaryStorage;
 
     public final static String NO_EXIST_KEY = "Key don't found!";
+
+    @Autowired
+    private Formation formation;
+
     @Autowired
     public DictionaryService(Validator validator, DictionaryStorage dictionaryStorage) {
         this.validator = validator;
@@ -52,7 +57,17 @@ public class DictionaryService {
      * @param selectedDictionary выбранный язык словаря
      * @return строки из хранилища
      */
-    public List<DictionaryLine> readService(DictionaryType selectedDictionary) {
+    public List<String> readService(DictionaryType selectedDictionary) {
+        return formation.castToString(dictionaryStorage.read(selectedDictionary));
+    }
+
+    /**
+     * Метод отвечает за обращение к методу чтения данных относительно способа хранения и выбранного языка
+     *
+     * @param selectedDictionary выбранный язык словаря
+     * @return строки из хранилища
+     */
+    public List<DictionaryLine> readServiceRest(DictionaryType selectedDictionary) {
         return dictionaryStorage.read(selectedDictionary);
     }
 
@@ -74,7 +89,25 @@ public class DictionaryService {
      * @param selectedDictionary выбранный язык словаря
      * @return объект типа DictionaryLine
      */
-    public ResponseEntity<?> searchService(String key, DictionaryType selectedDictionary)
+    public String searchService(String key, DictionaryType selectedDictionary)
+    {
+        final Optional<DictionaryLine> optionalReturn = Optional.ofNullable(dictionaryStorage.search(key, selectedDictionary));
+        if (optionalReturn.isEmpty()) {
+            return NO_EXIST_KEY;
+        }
+        else {
+            return formation.castToString(dictionaryStorage.search(key, selectedDictionary));
+        }
+    }
+
+    /**
+     * Метод отвечает за обращение к методу поиска значения по ключу и вывод строки относительно способа хранения выбранного языка
+     *
+     * @param key                ключ, введенный пользователем
+     * @param selectedDictionary выбранный язык словаря
+     * @return объект типа DictionaryLine
+     */
+    public ResponseEntity<?> searchServiceRest(String key, DictionaryType selectedDictionary)
     {
         final Optional<DictionaryLine> optionalReturn = Optional.ofNullable(dictionaryStorage.search(key, selectedDictionary));
         if (optionalReturn.isEmpty()) {
