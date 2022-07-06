@@ -9,16 +9,16 @@
 <body>
 <p>Какую операцию вы хотите выполнить?</p>
 <br/>
-<a th:href="@{'/add-menu/?id=' + ${dictionaryId}}">Добавление пары</a>
+<a th:href="@{'/add-menu/?dictionaryId=' + ${dictionaryId}}">Добавление пары</a>
 <br/>
-<a th:href="@{'/search-menu/?id=' + ${dictionaryId}}">Поиск пары по ключу</a>
+<a th:href="@{'/search-menu/?dictionaryId=' + ${dictionaryId}}">Поиск пары по ключу</a>
 <br/>
-<a th:href="@{'/remove-menu/?id=' + ${dictionaryId}}">Удаление пары</a>
+<a th:href="@{'/remove-menu/?dictionaryId=' + ${dictionaryId}}">Удаление пары</a>
 <br/>
-<a th:href="@{'/action/read/?id=' + ${dictionaryId}}">Показать содержимое словаря</a>
+<a th:href="@{'/action/read/?dictionaryId=' + ${dictionaryId}}">Показать содержимое словаря</a>
 <br/>
 
-<a href="index.jsp">Вернуться к выбору словаря</a>
+<a href="/index.jsp">Вернуться к выбору словаря</a>
 </body>
 
 </html>

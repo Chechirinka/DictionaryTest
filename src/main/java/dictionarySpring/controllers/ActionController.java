@@ -37,16 +37,16 @@ public class ActionController {
     }
 
     @GetMapping("/read")
-    public String read(@RequestParam(value = "dictionaryId") int id,
+    public String read(@RequestParam(value = "dictionaryId") int dictionaryId,
                        Model model) {
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(dictionaryId);
         } catch (TypeNotFoundException e) {
             model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
         List<String> readResult = dictionaryService.readService(selectedDictionary);
 
-        model.addAttribute(ID, id);
+        model.addAttribute(ID, dictionaryId);
         model.addAttribute(RESULT, readResult);
         return "action_results/read_result";
     }
@@ -54,10 +54,10 @@ public class ActionController {
     @PostMapping("/add")
     public String write(@RequestParam(value = "key") String key,
                         @RequestParam(value = "value") String value,
-                        @RequestParam(value = "dictionaryId") int id, Model model) {
-        model.addAttribute(ID, id);
+                        @RequestParam(value = "dictionaryId") int dictionaryId, Model model) {
+        model.addAttribute(ID, dictionaryId);
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(dictionaryId);
         } catch (TypeNotFoundException e) {
             model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
@@ -71,10 +71,10 @@ public class ActionController {
 
     @GetMapping("/search")
     public String search(@RequestParam String key,
-                         @RequestParam(value = "dictionaryId") int id, Model model) {
-        model.addAttribute(ID, id);
+                         @RequestParam(value = "dictionaryId") int dictionaryId, Model model) {
+        model.addAttribute(ID, dictionaryId);
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(dictionaryId);
         } catch (TypeNotFoundException e) {
             model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
@@ -85,10 +85,10 @@ public class ActionController {
 
     @PostMapping("/remove")
     public String remove(@RequestParam String key,
-                         @RequestParam(value = "dictionaryId") int id, Model model) {
-        model.addAttribute(ID, id);
+                         @RequestParam(value = "dictionaryId") int dictionaryId, Model model) {
+        model.addAttribute(ID, dictionaryId);
         try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(dictionaryId);
         } catch (TypeNotFoundException e) {
             model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
         }
