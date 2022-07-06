@@ -39,7 +39,7 @@ public class ActionController {
     @GetMapping("/read")
 
     public String read(@RequestParam(value = "id") int id,
-                             Model model) {
+                       Model model) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
@@ -90,7 +90,7 @@ public class ActionController {
 
     public String remove(@RequestParam String key,
                          @RequestParam(value = "id") int id, Model model) {
-            model.addAttribute(ID, id);
+        model.addAttribute(ID, id);
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
         } catch (TypeNotFoundException e) {
@@ -104,10 +104,3 @@ public class ActionController {
         return "action_results/remove_result";
     }
 }
-
-
-
-
-
-
-
