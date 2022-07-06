@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/action-rest")
 public class ActionControllerRest{
-    private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
+    private final static String NO_EXIST_LANGUAGE = "Error, this language does not exist!";
     private final static String SUCCESS = "Success";
     public final static String ERROR = "Error";
     private final static String DELETE = "Delete";
     private final static String NO_DELETE = "No delete";
     private final DictionaryService dictionaryService;
     private DictionaryType selectedDictionary;
-
 
     @Autowired
     public ActionControllerRest(DictionaryService dictionaryService) {

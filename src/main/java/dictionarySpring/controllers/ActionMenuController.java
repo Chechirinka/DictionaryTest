@@ -38,6 +38,5 @@ public class ActionMenuController {
         model.addAttribute(ID, id);
         return "action_menu/action_library_menu";
     }
-
 }
 
