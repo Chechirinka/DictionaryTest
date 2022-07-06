@@ -38,8 +38,8 @@ public class DictionaryService {
      * и выбранного языка
      * и возвращает true, при ошибке валидации возвращает false
      *
-     * @param key
-     * @param key
+     * @param key ключ, введенный пользователем
+     * @param value значение, введенный пользователем
      * @param selectedDictionary выбранный язык словаря
      * @return логическое значение
      */
@@ -55,7 +55,7 @@ public class DictionaryService {
      * Метод отвечает за обращение к методу чтения данных относительно способа хранения и выбранного языка
      *
      * @param selectedDictionary выбранный язык словаря
-     * @return строки из хранилища
+     * @return преобразованные строки из хранилища
      */
     public List<String> readService(DictionaryType selectedDictionary) {
         return formation.castToString(dictionaryStorage.read(selectedDictionary));
@@ -87,7 +87,7 @@ public class DictionaryService {
      *
      * @param key                ключ, введенный пользователем
      * @param selectedDictionary выбранный язык словаря
-     * @return объект типа DictionaryLine
+     * @return объект типа String
      */
     public String searchService(String key, DictionaryType selectedDictionary)
     {
@@ -105,7 +105,7 @@ public class DictionaryService {
      *
      * @param key                ключ, введенный пользователем
      * @param selectedDictionary выбранный язык словаря
-     * @return объект типа DictionaryLine
+     * @return объект типа ResponseEntity<?>
      */
     public ResponseEntity<?> searchServiceRest(String key, DictionaryType selectedDictionary)
     {
