@@ -37,7 +37,6 @@ public class ActionController {
     }
 
     @GetMapping("/read")
-
     public String read(@RequestParam(value = "dictionaryId") int id,
                        Model model) {
         try {
@@ -53,7 +52,6 @@ public class ActionController {
     }
 
     @PostMapping("/add")
-
     public String write(@RequestParam(value = "key") String key,
                         @RequestParam(value = "value") String value,
                         @RequestParam(value = "dictionaryId") int id, Model model) {
@@ -72,7 +70,6 @@ public class ActionController {
     }
 
     @GetMapping("/search")
-
     public String search(@RequestParam String key,
                          @RequestParam(value = "dictionaryId") int id, Model model) {
         model.addAttribute(ID, id);
@@ -87,7 +84,6 @@ public class ActionController {
     }
 
     @PostMapping("/remove")
-
     public String remove(@RequestParam String key,
                          @RequestParam(value = "dictionaryId") int id, Model model) {
         model.addAttribute(ID, id);

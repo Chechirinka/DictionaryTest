@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>My app</title>
+    <title>Adding</title>
 </head>
 
 <body>
 <form action="/action/add" method="post">
-    <div id="id_lib" th:text="${dictionaryId}">Словарь</div>
+    <div id="id" th:text="${dictionaryId}">Словарь</div>
     <p>Введите ключ и значение</p>
 
     <div>
@@ -26,7 +26,7 @@
     </div>
 
     <script>
-        document.getElementById('dictionaryId').setAttribute("value",document.getElementById("id_lib").innerText);
+        document.getElementById('dictionaryId').setAttribute("value",document.getElementById("id").innerText);
     </script>
 </form>
 </body>

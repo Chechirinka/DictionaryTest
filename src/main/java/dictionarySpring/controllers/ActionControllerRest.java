@@ -4,6 +4,8 @@ import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.exception.TypeNotFoundException;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.service.DictionaryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/action-rest")
+@Tag(name = "Action", description = "REST controller for action")
 public class ActionControllerRest{
     private final static String NO_EXIST_LANGUAGE = "Error, this language does not exist!";
     private final static String SUCCESS = "Success";
@@ -33,6 +36,7 @@ public class ActionControllerRest{
 
     @GetMapping("read")
     @ResponseBody
+    @Operation(summary = "Read", description = "Read content", tags = {"Read"})
     public ResponseEntity<?> read(@RequestParam(value = "dictionaryId") int id) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
@@ -42,9 +46,10 @@ public class ActionControllerRest{
         return new ResponseEntity<>(dictionaryService.readServiceRest(selectedDictionary), HttpStatus.OK);
     }
 
-    @PostMapping("write")
+    @PostMapping("add")
     @ResponseBody
-    public ResponseEntity<?> write(@RequestParam(value = "dictionaryId") int id,
+    @Operation(summary = "Add", description = "Add something", tags = {"Add"})
+    public ResponseEntity<?> add(@RequestParam(value = "dictionaryId") int id,
                                    @RequestBody DictionaryLine dictionaryLine) {
         try {
             selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
@@ -58,6 +63,8 @@ public class ActionControllerRest{
     }
 
     @GetMapping("search")
+    @ResponseBody
+    @Operation(summary = "Search", description = "Search something", tags = {"Search"})
     public ResponseEntity<?> search(@RequestParam(value = "dictionaryId") int id,
                                  @RequestParam(value = "key") String key) {
         try {
@@ -70,6 +77,7 @@ public class ActionControllerRest{
 
     @PostMapping("remove")
     @ResponseBody
+    @Operation(summary = "Remove", description = "Remove something", tags = {"Remove"})
     public ResponseEntity<?> remove(@RequestParam(value = "dictionaryId") int id,
                                     @RequestParam(value = "key") String key){
         try {

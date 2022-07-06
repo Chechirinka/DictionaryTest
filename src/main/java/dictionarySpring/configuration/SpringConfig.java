@@ -19,6 +19,14 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @ComponentScan("dictionarySpring")
 @PropertySource(value = "classpath:properties.yml")
 @EnableWebMvc
+@Import({
+        org.springdoc.webmvc.ui.SwaggerConfig.class,
+        org.springdoc.core.SwaggerUiConfigProperties.class, org.springdoc.core.SwaggerUiOAuthProperties.class,
+        org.springdoc.webmvc.core.SpringDocWebMvcConfiguration.class,
+        org.springdoc.webmvc.core.MultipleOpenApiSupportConfiguration.class,
+        org.springdoc.core.SpringDocConfiguration.class, org.springdoc.core.SpringDocConfigProperties.class,
+        org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.class
+})
 public class SpringConfig implements WebMvcConfigurer {
 
     private final static String MAP = "map";
