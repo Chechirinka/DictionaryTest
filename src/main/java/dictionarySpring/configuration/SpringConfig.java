@@ -24,8 +24,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
         org.springdoc.core.SwaggerUiConfigProperties.class, org.springdoc.core.SwaggerUiOAuthProperties.class,
         org.springdoc.webmvc.core.SpringDocWebMvcConfiguration.class,
         org.springdoc.webmvc.core.MultipleOpenApiSupportConfiguration.class,
-        org.springdoc.core.SpringDocConfiguration.class, org.springdoc.core.SpringDocConfigProperties.class,
-        org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.class
+        org.springdoc.core.SpringDocConfiguration.class, org.springdoc.core.SpringDocConfigProperties.class
 })
 public class SpringConfig implements WebMvcConfigurer {
 
