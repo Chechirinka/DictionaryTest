@@ -15,7 +15,7 @@
 <p th:text="${errorResult}"/>
 
 <div>
-    <a th:href="@{'/work-lib-menu/?dictionaryId=' + ${dictionaryId}}">Вернуться в меню словаря</a>
+    <a th:href="@{${startAction} + ${dictionaryId} + ${action}}">Вернуться в меню словаря</a>
 </div>
 
 </body>

@@ -6,10 +6,7 @@ import dictionarySpring.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -99,4 +96,15 @@ public class ActionControllerMvc {
         }
         return "action_results/remove_result";
     }
+
+    @ModelAttribute("action")
+    public String returnLib(){
+        return "&action=menu";
+    }
+
+    @ModelAttribute("startAction")
+    public String startLib(){
+        return "/action-menu/?dictionaryId=";
+    }
+
 }

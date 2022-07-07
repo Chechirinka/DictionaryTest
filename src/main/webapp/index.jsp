@@ -17,12 +17,15 @@
 
 <p>Select language:</p>
 
-<form action="/work-lib-menu" method="get">
+<form action="/action-menu" method="get">
 
     <div>
         <select name="dictionaryId">
             <option value="1">English</option>
             <option value="2">Digital</option>
+        </select>
+        <select name="action" hidden="hidden">
+            <option value="menu">English</option>
         </select>
     </div>
     <br/>

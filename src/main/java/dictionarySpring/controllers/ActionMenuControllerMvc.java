@@ -11,32 +11,12 @@ import static dictionarySpring.controllers.ActionControllerMvc.ID;
 @Controller
 @RequestMapping()
 public class ActionMenuControllerMvc {
-
-    @GetMapping("/add-menu")
-    public String menuAddPair(@RequestParam(name = "dictionaryId") int dictionaryId,
-                              Model model){
+    @GetMapping("/action-menu")
+    public String workWithLibrary(@RequestParam(name = "dictionaryId") int dictionaryId,
+                                  @RequestParam(name = "action") String action,
+                                  Model model) {
         model.addAttribute(ID, dictionaryId);
-        return "action_menu/add_menu";
-    }
-
-    @GetMapping("/search-menu")
-    public String menuSearchPair(@RequestParam(name = "dictionaryId") int dictionaryId,
-                                 Model model){
-        model.addAttribute(ID, dictionaryId);
-        return "action_menu/search_menu";
-    }
-
-    @GetMapping("/remove-menu")
-    public String menuDeletePair(@RequestParam(name = "dictionaryId") int dictionaryId,
-                                 Model model){
-        model.addAttribute(ID, dictionaryId);
-        return "action_menu/remove_menu";
-    }
-
-    @GetMapping("/work-lib-menu")
-    public String workWithLibrary(@RequestParam(name = "dictionaryId") int dictionaryId, Model model) {
-        model.addAttribute(ID, dictionaryId);
-        return "action_menu/action_library_menu";
+        return "action_menu/" + action;
     }
 }
 
