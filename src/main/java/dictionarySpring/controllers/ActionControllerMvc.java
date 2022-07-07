@@ -37,7 +37,7 @@ public class ActionControllerMvc {
     }
 
     @PostMapping("/add")
-    public String write(@RequestParam(value = "key") String key,
+    public String add(@RequestParam(value = "key") String key,
                         @RequestParam(value = "value") String value,
                         @RequestParam(value = "dictionaryId") int dictionaryId, Model model) {
         model.addAttribute(ID, dictionaryId);
