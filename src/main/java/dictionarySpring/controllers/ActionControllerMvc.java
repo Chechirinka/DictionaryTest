@@ -104,7 +104,7 @@ public class ActionControllerMvc {
 
     @ModelAttribute("startAction")
     public String startLib(){
-        return "/action-menu/?dictionaryId=";
+        return "/menu-controller/action-menu/?dictionaryId=";
     }
 
 }

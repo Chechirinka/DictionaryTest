@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static dictionarySpring.controllers.ActionControllerMvc.ID;
 
 @Controller
-@RequestMapping()
+@RequestMapping("/menu-controller")
 public class ActionMenuControllerMvc {
     @GetMapping("/action-menu")
     public String workWithLibrary(@RequestParam(name = "dictionaryId") int dictionaryId,

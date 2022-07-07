@@ -17,7 +17,7 @@
 
 <p>Select language:</p>
 
-<form action="/action-menu" method="get">
+<form action="/menu-controller/action-menu" method="get">
 
     <div>
         <select name="dictionaryId">
