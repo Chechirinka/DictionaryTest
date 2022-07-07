@@ -1,7 +1,6 @@
 package dictionarySpring.service;
 
 import dictionarySpring.configuration.DictionaryType;
-import dictionarySpring.controllers.Formation;
 import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.storage.*;
 import dictionarySpring.validator.Validator;

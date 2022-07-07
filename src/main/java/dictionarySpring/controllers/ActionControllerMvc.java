@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/action")
 
-public class ActionController {
+public class ActionControllerMvc {
 
     private final static String ERROR_LANGUAGE = "errorResult";
     private final static String NO_EXIST_LANGUAGE = "Ошибка, такого языка не существует, повторите ввод!";
@@ -32,23 +32,8 @@ public class ActionController {
     private DictionaryType selectedDictionary;
 
     @Autowired
-    public ActionController(DictionaryService dictionaryService) {
+    public ActionControllerMvc(DictionaryService dictionaryService) {
         this.dictionaryService = dictionaryService;
-    }
-
-    @GetMapping("/read")
-    public String read(@RequestParam(value = "dictionaryId") int dictionaryId,
-                       Model model) {
-        try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(dictionaryId);
-        } catch (TypeNotFoundException e) {
-            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
-        }
-        List<String> readResult = dictionaryService.readService(selectedDictionary);
-
-        model.addAttribute(ID, dictionaryId);
-        model.addAttribute(RESULT, readResult);
-        return "action_results/read_result";
     }
 
     @PostMapping("/add")
@@ -67,6 +52,21 @@ public class ActionController {
             model.addAttribute(RESULT, ERROR);
         }
         return "action_results/add_result";
+    }
+
+    @GetMapping("/read")
+    public String read(@RequestParam(value = "dictionaryId") int dictionaryId,
+                       Model model) {
+        try {
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(dictionaryId);
+        } catch (TypeNotFoundException e) {
+            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
+        }
+        List<String> readResult = dictionaryService.readService(selectedDictionary);
+
+        model.addAttribute(ID, dictionaryId);
+        model.addAttribute(RESULT, readResult);
+        return "action_results/read_result";
     }
 
     @GetMapping("/search")

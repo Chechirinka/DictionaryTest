@@ -1,4 +1,4 @@
-package dictionarySpring.controllers;
+package dictionarySpring.service;
 
 import dictionarySpring.model.DictionaryLine;
 import org.springframework.beans.factory.annotation.Value;

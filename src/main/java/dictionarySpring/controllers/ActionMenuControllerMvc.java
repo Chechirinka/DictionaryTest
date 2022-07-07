@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static dictionarySpring.controllers.ActionController.ID;
+import static dictionarySpring.controllers.ActionControllerMvc.ID;
 
 @Controller
 @RequestMapping()
-public class ActionMenuController {
+public class ActionMenuControllerMvc {
 
     @GetMapping("/add-menu")
     public String menuAddPair(@RequestParam(name = "dictionaryId") int dictionaryId,

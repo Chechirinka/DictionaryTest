@@ -34,6 +34,21 @@ public class ActionControllerRest{
         this.dictionaryService = dictionaryService;
     }
 
+    @PostMapping("add")
+    @ResponseBody
+    @Operation(summary = "Add", description = "Add something", tags = {"Add"})
+    public ResponseEntity<?> add(@RequestParam(value = "dictionaryId") int id,
+                                 @RequestBody DictionaryLine dictionaryLine) {
+        try {
+            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
+        } catch (TypeNotFoundException e) {
+            return new ResponseEntity<>(NO_EXIST_LANGUAGE, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if (dictionaryService.addService(dictionaryLine.getKey(), dictionaryLine.getValue(), selectedDictionary)) {
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
+    }
     @GetMapping("read")
     @ResponseBody
     @Operation(summary = "Read", description = "Read content", tags = {"Read"})
@@ -46,21 +61,6 @@ public class ActionControllerRest{
         return new ResponseEntity<>(dictionaryService.readServiceRest(selectedDictionary), HttpStatus.OK);
     }
 
-    @PostMapping("add")
-    @ResponseBody
-    @Operation(summary = "Add", description = "Add something", tags = {"Add"})
-    public ResponseEntity<?> add(@RequestParam(value = "dictionaryId") int id,
-                                   @RequestBody DictionaryLine dictionaryLine) {
-        try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(id);
-        } catch (TypeNotFoundException e) {
-            return new ResponseEntity<>(NO_EXIST_LANGUAGE, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        if (dictionaryService.addService(dictionaryLine.getKey(), dictionaryLine.getValue(), selectedDictionary)) {
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
-    }
 
     @GetMapping("search")
     @ResponseBody
