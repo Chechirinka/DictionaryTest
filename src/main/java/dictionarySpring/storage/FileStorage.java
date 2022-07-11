@@ -38,7 +38,8 @@ public class FileStorage implements DictionaryStorage {
      */
     private void write(String key, String value, String path, boolean isWrite) throws IOException {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new ClassPathResource(path).getFile(), UTF_8, isWrite))) {
+        File file = new File(path);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8, isWrite))) {
             DictionaryLine dictionaryLine = new DictionaryLine(key, value);
             if (!path.isEmpty()) {
                 writer.write(dictionaryLineCodec.decode(dictionaryLine) + "\n");
@@ -58,7 +59,8 @@ public class FileStorage implements DictionaryStorage {
     private List<DictionaryLine> operationRead(String path) {
 
         List<DictionaryLine> results = new LinkedList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource(path).getFile()), StandardCharsets.UTF_8))) {
+        File file = new File(path);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 results.add(dictionaryLineCodec.encode(line));
@@ -71,7 +73,6 @@ public class FileStorage implements DictionaryStorage {
 
     /**
      * Метод, который отвечает за чтение данных из файла
-     *
      * @param selectedDictionary - принимает вид языка с которым работает
      * @return mapRead - возвращает список пар <ключ, значение>
      */
