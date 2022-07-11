@@ -1,21 +1,32 @@
+
+<%--
+  Created by IntelliJ IDEA.
+  User: ichernyaeva
+  Date: 06.07.2022
+  Time: 12:17
+  To change this template use File | Settings | File Templates.
+--%>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <title>My app</title>
+    <title>Start</title>
 </head>
 
 <body>
 
 <p>Select language:</p>
 
-<form action="/work-lib-menu" method="get">
+<form action="/menu-controller/action-menu" method="get">
 
     <div>
-        <select name="id">
+        <select name="dictionaryId">
             <option value="1">English</option>
             <option value="2">Digital</option>
+        </select>
+        <select name="action" hidden="hidden">
+            <option value="menu">English</option>
         </select>
     </div>
     <br/>

@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>My app</title>
+    <title>Removing</title>
 </head>
 
 <body>
 <form action="/action/remove" method="post">
-    <div id="id_lib" th:text="${id}">Словарь</div>
+    <div id="id" th:text="${dictionaryId}">Словарь</div>
     <p>Введите ключ</p>
 
     <div>
@@ -18,11 +18,11 @@
 
     <br/>
     <div>
-        <button id="id" name="id" value="">Удалить пару</button>
+        <button id="dictionaryId" name="dictionaryId" value="">Удалить пару</button>
     </div>
 
     <script>
-        document.getElementById('id').setAttribute("value",document.getElementById("id_lib").innerText);
+        document.getElementById('dictionaryId').setAttribute("value",document.getElementById("id").innerText);
     </script>
 </form>
 </body>

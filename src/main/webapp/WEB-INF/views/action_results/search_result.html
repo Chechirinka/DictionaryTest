@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>My app</title>
+    <title>Searching</title>
 </head>
 
 <body>
@@ -11,9 +11,10 @@
 
 <p th:text="${result}">key</p>
 
+<p th:text="${errorResult}"/>
 
 <div>
-    <a th:href="@{'/work-lib-menu/?id=' + ${id}}">Вернуться в меню словаря</a>
+    <a th:href="@{${startAction} + ${dictionaryId} + ${action}}">Вернуться в меню словаря</a>
 </div>
 
 </body>

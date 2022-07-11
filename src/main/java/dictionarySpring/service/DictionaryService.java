@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-import static dictionarySpring.controllers.ActionController.NO_EXIST_KEY;
-
 /**
  * Класс отвечает за разделение слоя хранения и слоя представления
  */
@@ -21,6 +19,8 @@ public class DictionaryService {
 
     private final Validator validator;
     private final DictionaryStorage dictionaryStorage;
+
+    public final static String NO_EXIST_KEY = "Key don't found!";
 
     @Autowired
     private Formation formation;

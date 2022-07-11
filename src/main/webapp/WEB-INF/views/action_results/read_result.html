@@ -1,14 +1,17 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns: lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <title>My app</title>
+    <title>Reading</title>
 </head>
 
 <body>
 
 <p>Тут читают</p>
+
+<p th:text="${errorResult}"/>
 
 <table>
     <tr>
@@ -23,7 +26,7 @@
 </table>
 
 <div>
-    <a th:href="@{'/work-lib-menu/?id=' + ${id}}">Вернуться в меню словаря</a>
+    <a th:href="@{${startAction} + ${dictionaryId} + ${action}}">Вернуться в меню словаря</a>
 </div>
 
 </body>
