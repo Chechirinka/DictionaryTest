@@ -1,13 +1,17 @@
 package dictionarySpring.configuration;
 
+import dictionarySpring.dao.DictionaryDAO;
 import dictionarySpring.storage.DictionaryStorage;
 import dictionarySpring.storage.FileStorage;
 import dictionarySpring.storage.MapStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,12 +22,10 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
-import java.util.Objects;
-
 
 @Configuration
 @ComponentScan("dictionarySpring")
-@PropertySource("classpath:database.properties")
+@PropertySource(value = "classpath:properties.yml")
 @EnableWebMvc
 @Import({
         org.springdoc.webmvc.ui.SwaggerConfig.class,
@@ -34,26 +36,27 @@ import java.util.Objects;
 })
 public class SpringConfig implements WebMvcConfigurer {
 
-    private final static String MAP = "map";
-
-    private final Environment environment;
-
     private final ApplicationContext applicationContext;
 
+    private static final String MAP = "map";
+
     @Autowired
-    public SpringConfig(Environment environment, ApplicationContext applicationContext) {
-        this.environment = environment;
+    public SpringConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-//    @Bean(name = "dictionaryFactory")
-//    public DictionaryStorage getDictionary(@Value("${type}") String args) {
-//        if (args.equals(MAP)) {
-//            return new MapStorage();
-//        } else {
-//            return new FileStorage();
-//        }
-//    }
+    @Bean(name = "dictionaryFactory")
+    public DictionaryStorage getDictionary(@Value("${type}") String args) {
+        switch (args) {
+            case ("map"):
+                return new MapStorage();
+            case ("file"):
+                return new FileStorage();
+            case ("dao"):
+                return new DictionaryDAO(jdbcTemplate());
+        }
+        return new FileStorage();
+    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
@@ -81,21 +84,19 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-    @Bean
-    public DataSource dateSource() {
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("driver")));
-        dataSource.setUrl(environment.getProperty("url"));
-        dataSource.setUsername(environment.getProperty("username"));
-        dataSource.setPassword("password");
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/test");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("84zabira");
 
-        return dateSource();
+        return dataSource;
     }
 
-    @Bean
     public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dateSource());
+        return new JdbcTemplate(dataSource());
     }
 }
 

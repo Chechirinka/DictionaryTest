@@ -29,26 +29,11 @@ public class ActionControllerMvc {
 
     private final DictionaryService dictionaryService;
 
-    private final DictionaryDAO dictionaryDAO;
-
     private DictionaryType selectedDictionary;
 
     @Autowired
-    public ActionControllerMvc(DictionaryService dictionaryService, DictionaryDAO dictionaryDAO) {
+    public ActionControllerMvc(DictionaryService dictionaryService) {
         this.dictionaryService = dictionaryService;
-        this.dictionaryDAO = dictionaryDAO;
-    }
-
-    @GetMapping("/readbd")
-    public String reading(Model model) {
-        try {
-            selectedDictionary = DictionaryType.getDictionaryTypeByNumber(1);
-        } catch (TypeNotFoundException e) {
-            model.addAttribute(ERROR_LANGUAGE, NO_EXIST_LANGUAGE);
-        }
-        List<DictionaryLine> readResult = DictionaryDAO.readBD();
-        model.addAttribute(RESULT, readResult);
-        return "action_results/read_result";
     }
 
     @PostMapping("/add")

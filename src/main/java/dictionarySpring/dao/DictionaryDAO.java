@@ -1,24 +1,39 @@
 package dictionarySpring.dao;
 
+import dictionarySpring.configuration.DictionaryType;
 import dictionarySpring.model.DictionaryLine;
-import org.springframework.beans.factory.annotation.Autowired;
+import dictionarySpring.storage.DictionaryStorage;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class DictionaryDAO {
 
-    private static JdbcTemplate jdbcTemplate;
+public class DictionaryDAO implements DictionaryStorage {
 
-    @Autowired
-    private DictionaryDAO(JdbcTemplate jdbcTemplate){
+    private JdbcTemplate jdbcTemplate;
+
+    public DictionaryDAO(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public static List<DictionaryLine> readBD() {
-        return jdbcTemplate.query("SELECT * FROM dictionaries", new BeanPropertyRowMapper<>(DictionaryLine.class));
+    @Override
+    public List<DictionaryLine> read(DictionaryType selectedDictionary) {
+        return jdbcTemplate.query("SELECT * FROM dictline", new BeanPropertyRowMapper<>(DictionaryLine.class));
+    }
+
+    @Override
+    public boolean addTo(String key, String value, DictionaryType selectedDictionary) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(String key, DictionaryType selectedDictionary) {
+        return false;
+    }
+
+    @Override
+    public DictionaryLine search(String key, DictionaryType selectedDictionary) {
+        return null;
     }
 }
