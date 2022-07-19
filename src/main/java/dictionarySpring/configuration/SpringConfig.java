@@ -46,14 +46,14 @@ public class SpringConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
     }
 
-    @Bean(name = "dictionaryFactory")
-    public DictionaryStorage getDictionary(@Value("${type}") String args) {
-        if (args.equals(MAP)) {
-            return new MapStorage();
-        } else {
-            return new FileStorage();
-        }
-    }
+//    @Bean(name = "dictionaryFactory")
+//    public DictionaryStorage getDictionary(@Value("${type}") String args) {
+//        if (args.equals(MAP)) {
+//            return new MapStorage();
+//        } else {
+//            return new FileStorage();
+//        }
+//    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {

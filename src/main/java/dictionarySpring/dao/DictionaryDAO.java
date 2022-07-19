@@ -2,6 +2,7 @@ package dictionarySpring.dao;
 
 import dictionarySpring.model.DictionaryLine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,6 @@ public class DictionaryDAO {
     }
 
     public static List<DictionaryLine> readBD() {
-        return jdbcTemplate.query("SELECT * FROM dictionaries", new DictionaryMapper());
+        return jdbcTemplate.query("SELECT * FROM dictionaries", new BeanPropertyRowMapper<>(DictionaryLine.class));
     }
 }
