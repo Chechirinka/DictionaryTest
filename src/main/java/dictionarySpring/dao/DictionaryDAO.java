@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
-
 public class DictionaryDAO implements DictionaryStorage {
 
     private JdbcTemplate jdbcTemplate;
@@ -24,16 +23,20 @@ public class DictionaryDAO implements DictionaryStorage {
 
     @Override
     public boolean addTo(String key, String value, DictionaryType selectedDictionary) {
-        return false;
+        jdbcTemplate.update("INSERT INTO dictline(key, value) VALUES(?, ?)", key, value);
+        return true;
     }
 
     @Override
     public boolean remove(String key, DictionaryType selectedDictionary) {
-        return false;
+        jdbcTemplate.update("DELETE FROM dictline WHERE key = ?", key);
+        return true;
     }
 
     @Override
     public DictionaryLine search(String key, DictionaryType selectedDictionary) {
-        return null;
+
+        return jdbcTemplate.query("SELECT * FROM dictline WHERE key = ?", new Object[]{key}, new BeanPropertyRowMapper<>(DictionaryLine.class))
+                .stream().findAny().orElse(null);
     }
 }
