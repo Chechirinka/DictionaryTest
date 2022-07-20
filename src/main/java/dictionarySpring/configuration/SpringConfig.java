@@ -39,6 +39,8 @@ public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
     private static final String MAP = "map";
+    private static final String FILE = "file";
+    private static final String DAO = "dao";
 
     @Autowired
     public SpringConfig(ApplicationContext applicationContext) {
@@ -48,11 +50,11 @@ public class SpringConfig implements WebMvcConfigurer {
     @Bean(name = "dictionaryFactory")
     public DictionaryStorage getDictionary(@Value("${type}") String args) {
         switch (args) {
-            case ("map"):
+            case (MAP):
                 return new MapStorage();
-            case ("file"):
+            case (FILE):
                 return new FileStorage();
-            case ("dao"):
+            case (DAO):
                 return new DictionaryDAO(jdbcTemplate());
         }
         return new FileStorage();
