@@ -5,7 +5,6 @@ import dictionarySpring.dao.DictionaryJpaHql;
 import dictionarySpring.storage.DictionaryStorage;
 import dictionarySpring.storage.FileStorage;
 import dictionarySpring.storage.MapStorage;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -29,6 +28,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
@@ -46,14 +46,12 @@ import java.util.Properties;
 })
 public class SpringConfig implements WebMvcConfigurer {
 
-    private final ApplicationContext applicationContext;
-
-    private final Environment env;
-
     private static final String MAP = "map";
     private static final String FILE = "file";
     private static final String DAO = "dao";
     private static final String JPA = "jpa";
+    private final ApplicationContext applicationContext;
+    private final Environment env;
 
     @Autowired
     public SpringConfig(ApplicationContext applicationContext, Environment env) {
@@ -102,6 +100,7 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
+
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
@@ -121,18 +120,21 @@ public class SpringConfig implements WebMvcConfigurer {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
-        properties.put("connection.provider_class", env.getRequiredProperty("connection.provider_class"));
 
         return properties;
     }
 
-
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("dictionarySpring");
         sessionFactory.setHibernateProperties(hibernateProperties());
-
+        try {
+            sessionFactory.afterPropertiesSet();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return sessionFactory;
     }
 
