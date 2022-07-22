@@ -35,7 +35,6 @@ public class ActionControllerRest{
     }
 
     @PostMapping("add")
-    @ResponseBody
     @Operation(summary = "Add", description = "Add something", tags = {"Add"})
     public ResponseEntity<?> add(@RequestParam(value = "dictionaryId") int dictionaryId,
                                  @RequestBody DictionaryLine dictionaryLine) {
@@ -49,8 +48,8 @@ public class ActionControllerRest{
         }
         return new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
     }
+
     @GetMapping("read")
-    @ResponseBody
     @Operation(summary = "Read", description = "Read content", tags = {"Read"})
     public ResponseEntity<?> read(@RequestParam(value = "dictionaryId") int dictionaryId) {
         try {
@@ -63,7 +62,6 @@ public class ActionControllerRest{
 
 
     @GetMapping("search")
-    @ResponseBody
     @Operation(summary = "Search", description = "Search something", tags = {"Search"})
     public ResponseEntity<?> search(@RequestParam(value = "dictionaryId") int dictionaryId,
                                  @RequestParam(value = "key") String key) {
@@ -76,7 +74,6 @@ public class ActionControllerRest{
     }
 
     @PostMapping("remove")
-    @ResponseBody
     @Operation(summary = "Remove", description = "Remove something", tags = {"Remove"})
     public ResponseEntity<?> remove(@RequestParam(value = "dictionaryId") int dictionaryId,
                                     @RequestParam(value = "key") String key){
