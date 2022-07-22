@@ -29,6 +29,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
@@ -104,10 +105,10 @@ public class SpringConfig implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/test");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("84zabira");
+        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("hibernate.driver.class")));
+        dataSource.setUrl(env.getProperty("hibernate.connection.url"));
+        dataSource.setUsername(env.getProperty("hibernate.connection.username"));
+        dataSource.setPassword(env.getProperty("hibernate.connection.password"));
 
         return dataSource;
     }
@@ -125,6 +126,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     public LocalSessionFactoryBean sessionFactory() {
+
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
         sessionFactory.setDataSource(dataSource());

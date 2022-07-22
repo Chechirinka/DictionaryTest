@@ -5,12 +5,10 @@ import dictionarySpring.model.DictionaryLine;
 import dictionarySpring.storage.DictionaryStorage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 public class DictionaryJpaHql implements DictionaryStorage {
 
     private final SessionFactory sessionFactory;
@@ -21,6 +19,7 @@ public class DictionaryJpaHql implements DictionaryStorage {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<DictionaryLine> read(DictionaryType selectedDictionary) {
         Session session = sessionFactory.openSession();
 
@@ -32,6 +31,7 @@ public class DictionaryJpaHql implements DictionaryStorage {
     }
 
     @Override
+    @Transactional
     public boolean addTo(String key, String value, DictionaryType selectedDictionary) {
         return false;
     }
@@ -42,7 +42,10 @@ public class DictionaryJpaHql implements DictionaryStorage {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DictionaryLine search(String key, DictionaryType selectedDictionary) {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        return session.get(DictionaryLine.class, key);
     }
 }
